@@ -22,7 +22,8 @@ export class MedicosService {
     return medico;
   }
 
-  // Médicos: pueden ver sus turnos reservados dada una fecha y marcar atendido o ausente
+
+  // Médicos: pueden ver sus turnos reservados dada una fecha
   async listarTurnosMedico(idUsuarioMedico: number, fecha?: string) {
     const medico = await this.obtenerMedicoPorIdUsuario(idUsuarioMedico);
     
@@ -31,6 +32,7 @@ export class MedicosService {
       .where('reserva.id_medico = :idMedico', { idMedico: medico.id });
 
     if (fecha) {
+      // Usamos el string directamente contra la función DATE de la base de datos
       query.andWhere('DATE(reserva.fecha_hora) = :fecha', { fecha });
     }
 

@@ -3,6 +3,7 @@ import { Controller, Get, Patch, Body, Param, Query, UseGuards, Req } from '@nes
 import { MedicosService } from '../services/medicos.service';
 import { ActualizarEstadoReservaDto } from '../dtos/input/actualizar-estado-reserva.dto';
 import { ModificarValorConsultaDto } from '../dtos/input/modificar-valor-consulta.dto';
+import { FiltrarTurnosMedicoDto } from '../dtos/input/filtrar-turnos-medico.dto'; // <-- Importar el DTO
 import { JwtAuthGuard } from '../../auth/guards/jwt-auth.guard';
 import { RolesGuard } from '../../auth/guards/roles.guard';
 import { Roles } from '../../auth/decorators/roles.decorator';
@@ -18,8 +19,8 @@ export class MedicosController {
 
   @Get('turnos')
   @Roles(RolesUsuarios.MEDICO)
-  async verTurnos(@Req() req, @Query('fecha') fecha?: string) {
-    return this.medicosService.listarTurnosMedico(req.user.id, fecha);
+  async verTurnos(@Req() req, @Query() queryDto: FiltrarTurnosMedicoDto) {
+    return this.medicosService.listarTurnosMedico(req.user.id, queryDto.fecha);
   }
 
   @Patch('turnos/:id/estado')

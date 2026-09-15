@@ -1,6 +1,7 @@
 // src/main.ts
 import { NestFactory } from '@nestjs/core';
 import { AppModule } from './app.module';
+import { ValidationPipe } from '@nestjs/common';
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger'; // <-- Asegúrate de importar esto
 
 async function bootstrap() {
@@ -8,7 +9,7 @@ async function bootstrap() {
 
   // (Opcional) Si usas un prefijo global, tenlo en cuenta
   // app.setGlobalPrefix('api/v1'); 
-
+  app.useGlobalPipes(new ValidationPipe({ transform: true }));
   // Configuración de Swagger
   const config = new DocumentBuilder()
     .setTitle('Sistema de Gestión de Clínica')
@@ -20,7 +21,7 @@ async function bootstrap() {
   const document = SwaggerModule.createDocument(app, config);
   SwaggerModule.setup('api', app, document); // <-- Esto es lo que expone Swagger en http://localhost:3000/api
 
-  await app.listen(3000);
+  await app.listen(3000, '127.0.0.1');
   console.log(`Aplicación corriendo en: ${await app.getUrl()}`);
   console.log(`Swagger disponible en: ${await app.getUrl()}/api`);
 }
