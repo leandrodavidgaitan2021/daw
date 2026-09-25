@@ -9,10 +9,16 @@
     "target": "ES2021",
     "sourceMap": true,
     "outDir": "./dist",
-    "rootDir": "./src",
+    "rootDir": "./src", // Sigue apuntando a src para el código fuente de producción
     "incremental": true,
     "skipLibCheck": true,
-    "strict": false,
-    "strictPropertyInitialization": false
-  }
+    "strictNullChecks": false,
+    "noImplicitAny": false,
+    "strictBindCallApply": false,
+    "forceConsistentCasingInFileNames": false,
+    "noFallthroughCasesInSwitch": false
+  },
+  // Agrega esto para indicarle explícitamente a TypeScript qué debe compilar y qué ignorar:
+  "include": ["src/**/*"],
+  "exclude": ["node_modules", "dist", "test", "**/*.spec.ts", "vitest.config.e2e.ts", "documentation"]
 }

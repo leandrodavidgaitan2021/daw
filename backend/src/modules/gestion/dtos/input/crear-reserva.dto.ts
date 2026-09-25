@@ -1,6 +1,6 @@
 // Ejemplo en tu archivo de DTO de creación de reservas
 import { ApiProperty } from '@nestjs/swagger';
-import { IsDateString, IsNumber } from 'class-validator';
+import { IsDateString, IsNumber, IsOptional } from 'class-validator';
 
 export class CrearReservaDto {
   @ApiProperty({ example: 1, description: 'ID del médico asignado' })
@@ -9,6 +9,7 @@ export class CrearReservaDto {
 
   @ApiProperty({ example: 1, description: 'ID del paciente' })
   @IsNumber()
+  @IsOptional() // Permite que la propiedad no sea enviada por el paciente
   idPaciente: number;
 
   @ApiProperty({ 
