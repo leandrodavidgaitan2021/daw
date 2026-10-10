@@ -1,0 +1,58 @@
+<p-dialog 
+  header="Iniciar Sesión" 
+  [(visible)]="visible" 
+  [modal]="true" 
+  [style]="{ width: '420px' }" 
+  [draggable]="false" 
+  [resizable]="false"
+  (onHide)="onHide()">
+  
+  <div class="login-form-container">
+    <p class="login-subtitle">Ingresa tus credenciales para acceder al sistema</p>
+
+    <form [formGroup]="loginForm" (ngSubmit)="onSubmit()" class="flex flex-column gap-3">
+      
+      <!-- Campo Email -->
+      <div class="flex flex-column gap-1">
+        <label for="correo" class="font-medium text-900">Correo Electrónico</label>
+        <input 
+          pInputText 
+          id="correo" 
+          type="email" 
+          formControlName="correo" 
+          placeholder="tucorreo@ejemplo.com" 
+          class="w-full"
+        />
+        @if (loginForm.controls.correo.touched && loginForm.controls.correo.invalid) {
+          <small class="p-error">Ingresa un correo electrónico válido.</small>
+        }
+      </div>
+
+      <!-- Campo Password -->
+      <div class="flex flex-column gap-1">
+        <label for="clave" class="font-medium text-900">Contraseña</label>
+        <p-password 
+          id="clave" 
+          formControlName="clave" 
+          [feedback]="false" 
+          [toggleMask]="true" 
+          class="w-full block" 
+          [inputStyle]="{ width: '100%' }"
+          placeholder="••••••••"
+        ></p-password>
+        @if (loginForm.controls.clave.touched && loginForm.controls.clave.invalid) {
+          <small class="p-error">La contraseña debe tener al menos 6 caracteres.</small>
+        }
+      </div>
+
+      <!-- Botón de Envío -->
+      <p-button 
+        label="Ingresar" 
+        type="submit" 
+        styleClass="w-full mt-3 py-2 font-bold" 
+        [loading]="isLoading()"
+      ></p-button>
+
+    </form>
+  </div>
+</p-dialog>

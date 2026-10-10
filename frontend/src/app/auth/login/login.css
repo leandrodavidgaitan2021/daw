@@ -1,0 +1,45 @@
+/* Contenedor principal del formulario dentro del diálogo */
+.login-form-container {
+  padding: 0.5rem 0.2rem;
+}
+
+/* Estilo para los títulos de sección o subtítulos opcionales */
+.login-subtitle {
+  color: var(--surface-600);
+  font-size: 0.95rem;
+  margin-bottom: 1.2rem;
+  text-align: center;
+}
+
+/* Asegurar que los inputs de PrimeNG ocupen todo el ancho y tengan buen espaciado */
+::ng-deep .p-password,
+::ng-deep .p-password input {
+  width: 100% !important;
+}
+
+/* Personalización del contenedor del diálogo para darle un toque más elegante */
+::ng-deep .p-dialog {
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1) !important;
+}
+
+::ng-deep .p-dialog .p-dialog-header {
+  background-color: var(--surface-0);
+  border-bottom: 1px solid var(--surface-border);
+  padding: 1.25rem 1.5rem;
+}
+
+::ng-deep .p-dialog .p-dialog-content {
+  background-color: var(--surface-0);
+  padding: 1.5rem;
+}
+
+/* Efecto hover suave para el botón de ingresar */
+::ng-deep .p-button {
+  transition: background-color 0.2s, transform 0.1s;
+}
+
+::ng-deep .p-button:active {
+  transform: scale(0.98);
+}

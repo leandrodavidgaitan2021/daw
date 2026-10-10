@@ -11,25 +11,35 @@ import { RolesUsuarios } from '../enums/roles-usuarios.enum';
 import { ApiTags, ApiBearerAuth } from '@nestjs/swagger';
 
 @ApiTags('Médicos')
-@ApiBearerAuth()
-@UseGuards(JwtAuthGuard, RolesGuard)
 @Controller('medicos')
 export class MedicosController {
   constructor(private readonly medicosService: MedicosService) {}
 
+  // Este endpoint ahora es PÚBLICO para que se vea en el Home
+  @Get()
+  async listarMedicos() {
+    return this.medicosService.listarTodos();
+  }
+
   @Get('turnos')
+  @ApiBearerAuth()
+  @UseGuards(JwtAuthGuard, RolesGuard)
   @Roles(RolesUsuarios.MEDICO)
   async verTurnos(@Req() req, @Query() queryDto: FiltrarTurnosMedicoDto) {
     return this.medicosService.listarTurnosMedico(req.user.id, queryDto.fecha);
   }
 
   @Patch('turnos/:id/estado')
+  @ApiBearerAuth()
+  @UseGuards(JwtAuthGuard, RolesGuard)
   @Roles(RolesUsuarios.MEDICO)
   async actualizarEstadoTurno(@Param('id') id: number, @Req() req, @Body() dto: ActualizarEstadoReservaDto) {
     return this.medicosService.actualizarEstadoReserva(Number(id), req.user.id, dto);
   }
 
   @Patch(':id/valor-consulta')
+  @ApiBearerAuth()
+  @UseGuards(JwtAuthGuard, RolesGuard)
   @Roles(RolesUsuarios.ADMINISTRADOR)
   async modificarValor(@Param('id') id: number, @Body() dto: ModificarValorConsultaDto) {
     return this.medicosService.modificarValorConsulta(Number(id), dto);
