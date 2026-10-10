@@ -14,4 +14,4 @@ _.njsproj
 _.sln
 \*.swp
 
-frontend/documentation-angular/
+/frontend/documentation-angular/

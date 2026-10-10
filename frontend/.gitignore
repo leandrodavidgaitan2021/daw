@@ -14,4 +14,4 @@
 *.tsbuildinfo
 
 # Documentación del proyecto
-frontend/documentation-angular/
+/frontend/documentation-angular/
