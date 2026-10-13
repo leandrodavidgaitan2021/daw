@@ -21,7 +21,6 @@ export interface TurnoMedico {
 })
 export class MedicoTurnosApiClient {
   private http = inject(HttpClient);
-  // Según tu controlador anterior: GET /api/v1/medicos/turnos?fecha=YYYY-MM-DD
   private readonly apiUrl = '/api/medicos/turnos';
 
   // Obtener turnos filtrados por fecha
@@ -32,6 +31,7 @@ export class MedicoTurnosApiClient {
 
   // Actualizar estado del turno (ATENDIDO o AUSENTE)
   actualizarEstadoTurno(turnoId: number, estado: 'ATENDIDO' | 'AUSENTE'): Observable<any> {
-    return this.http.patch(`/api/v1/medicos/turnos/${turnoId}/estado`, { estado });
+    // CORREGIDO: Uso de template string con backticks (`) y interpolación correcta (${...})
+    return this.http.patch(`${this.apiUrl}/${turnoId}/estado`, { estado });
   }
 }

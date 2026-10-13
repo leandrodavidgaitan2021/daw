@@ -5,16 +5,20 @@
   [style]="{ width: '420px' }" 
   [draggable]="false" 
   [resizable]="false"
+  styleClass="p-fluid"
   (onHide)="onHide()">
   
-  <div class="login-form-container">
-    <p class="login-subtitle">Ingresa tus credenciales para acceder al sistema</p>
+  <div class="flex flex-column gap-4 p-2">
+    <!-- Subtítulo -->
+    <p class="text-600 m-0 text-sm line-height-3">
+      Ingresa tus credenciales para acceder al sistema de gestión clínica.
+    </p>
 
-    <form [formGroup]="loginForm" (ngSubmit)="onSubmit()" class="flex flex-column gap-3">
+    <form [formGroup]="loginForm" (ngSubmit)="onSubmit()" class="flex flex-column gap-3 w-full">
       
-      <!-- Campo Email -->
-      <div class="flex flex-column gap-1">
-        <label for="correo" class="font-medium text-900">Correo Electrónico</label>
+      <!-- Campo Correo Electrónico -->
+      <div class="flex flex-column gap-2 w-full">
+        <label for="correo" class="font-bold text-900 text-sm">Correo Electrónico</label>
         <input 
           pInputText 
           id="correo" 
@@ -23,35 +27,45 @@
           placeholder="tucorreo@ejemplo.com" 
           class="w-full"
         />
-        @if (loginForm.controls.correo.touched && loginForm.controls.correo.invalid) {
-          <small class="p-error">Ingresa un correo electrónico válido.</small>
+        @if (loginForm.controls.correo.invalid && submitted()) {
+          <small class="text-red-500 font-medium">Ingresa un correo electrónico válido.</small>
         }
       </div>
 
-      <!-- Campo Password -->
-      <div class="flex flex-column gap-1">
-        <label for="clave" class="font-medium text-900">Contraseña</label>
+      <!-- Campo Contraseña -->
+      <div class="flex flex-column gap-2 w-full">
+        <label for="clave" class="font-bold text-900 text-sm">Contraseña</label>
         <p-password 
           id="clave" 
           formControlName="clave" 
           [feedback]="false" 
           [toggleMask]="true" 
-          class="w-full block" 
-          [inputStyle]="{ width: '100%' }"
+          class="w-full block"
+          inputStyleClass="w-full"
           placeholder="••••••••"
         ></p-password>
-        @if (loginForm.controls.clave.touched && loginForm.controls.clave.invalid) {
-          <small class="p-error">La contraseña debe tener al menos 6 caracteres.</small>
+        @if (loginForm.controls.clave.invalid && submitted()) {
+          <small class="text-red-500 font-medium">La contraseña debe tener al menos 6 caracteres.</small>
         }
       </div>
 
-      <!-- Botón de Envío -->
-      <p-button 
-        label="Ingresar" 
-        type="submit" 
-        styleClass="w-full mt-3 py-2 font-bold" 
-        [loading]="isLoading()"
-      ></p-button>
+      <!-- Botones de Acción (Ingresar y Cancelar) -->
+      <div class="flex gap-2 pt-2 w-full">
+        <p-button 
+          label="Ingresar" 
+          type="submit" 
+          styleClass="w-full py-3 font-bold text-base shadow-2" 
+          [loading]="isLoading()"
+          severity="primary"
+        ></p-button>
+        <p-button 
+          label="Cancelar" 
+          type="button" 
+          severity="secondary" 
+          styleClass="w-full py-3 font-bold text-base"
+          (onClick)="onCancel()"
+        ></p-button>
+      </div>
 
     </form>
   </div>
