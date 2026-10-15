@@ -94,6 +94,20 @@ export class MedicoTurnosComponent implements OnInit {
     }
   }
 
+  // Método para verificar si la fecha seleccionada es el día de hoy
+  esHoy(): boolean {
+    if (!this.selectedDate) return false;
+    
+    const hoy = new Date();
+    const fechaSeleccionada = new Date(this.selectedDate);
+
+    return (
+      fechaSeleccionada.getDate() === hoy.getDate() &&
+      fechaSeleccionada.getMonth() === hoy.getMonth() &&
+      fechaSeleccionada.getFullYear() === hoy.getFullYear()
+    );
+  }
+
  private formatDateToYYYYMMDD(date: Date | string): string {
     if (!date) return '';
     
