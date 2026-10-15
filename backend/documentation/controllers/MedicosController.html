@@ -193,6 +193,10 @@
                                 <span class="reference-badge reference-badge--method" aria-hidden="true">M</span>
                                     <span class="modifier"></span>
                                     <span class="modifier"></span>
+                                    <span class="modifier"></span>
+                                    <span class="modifier"></span>
+                                    <span class="modifier"></span>
+                                    <span class="modifier"></span>
                                     <span class="modifier">Async</span>
                                 <a href="#actualizarEstadoTurno" >actualizarEstadoTurno</a>
                             </li>
@@ -200,11 +204,27 @@
                                 <span class="reference-badge reference-badge--method" aria-hidden="true">M</span>
                                     <span class="modifier"></span>
                                     <span class="modifier"></span>
+                                    <span class="modifier"></span>
+                                    <span class="modifier">Async</span>
+                                <a href="#listarMedicos" >listarMedicos</a>
+                            </li>
+                            <li>
+                                <span class="reference-badge reference-badge--method" aria-hidden="true">M</span>
+                                    <span class="modifier"></span>
+                                    <span class="modifier"></span>
+                                    <span class="modifier"></span>
+                                    <span class="modifier"></span>
+                                    <span class="modifier"></span>
+                                    <span class="modifier"></span>
                                     <span class="modifier">Async</span>
                                 <a href="#modificarValor" >modificarValor</a>
                             </li>
                             <li>
                                 <span class="reference-badge reference-badge--method" aria-hidden="true">M</span>
+                                    <span class="modifier"></span>
+                                    <span class="modifier"></span>
+                                    <span class="modifier"></span>
+                                    <span class="modifier"></span>
                                     <span class="modifier"></span>
                                     <span class="modifier"></span>
                                     <span class="modifier">Async</span>
@@ -235,6 +255,10 @@
                     <span class="name">
                             <span class="modifier"></span>
                             <span class="modifier"></span>
+                            <span class="modifier"></span>
+                            <span class="modifier"></span>
+                            <span class="modifier"></span>
+                            <span class="modifier"></span>
                             <span class="modifier">Async</span>
                         <span ><b>actualizarEstadoTurno</b></span>
                         <a href="#actualizarEstadoTurno"><span class="icon ion-ios-link"></span></a>
@@ -244,7 +268,7 @@
             <tr>
                 <td class="col-md-4">
                         <span class="modifier-icon icon ion-ios-reset"></span>
-                    <code>actualizarEstadoTurno(id: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank">number</a>, req: unknown, dto: <a href="../classes/ActualizarEstadoReservaDto.html" target="_self">ActualizarEstadoReservaDto</a>)</code>
+                    <code>actualizarEstadoTurno(id: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank">number</a>, req: <a href="../interfaces/UsuarioAutenticado.html" target="_self">{ user: UsuarioAutenticado }</a>, dto: <a href="../classes/ActualizarEstadoReservaDto.html" target="_self">ActualizarEstadoReservaDto</a>)</code>
                 </td>
             </tr>
 
@@ -252,14 +276,14 @@
                 <td class="col-md-4">
                     <b>Decorators : </b>
                     <br />
-                    <code>@Patch(&#x27;turnos/:id/estado&#x27;)<br />@Roles(RolesUsuarios.MEDICO)<br /></code>
+                    <code>@Patch(&#x27;turnos/:id/estado&#x27;)<br />@ApiBearerAuth()<br />@UseGuards(JwtAuthGuard, RolesGuard)<br />@Roles(RolesUsuarios.MEDICO)<br />@ApiOperation({summary: &#x27;Marcar un turno propio como ATENDIDO o AUSENTE&#x27;})<br />@ApiOkResponse({type: ReservaResponseDto})<br /></code>
                 </td>
             </tr>
 
                     <tr>
                         <td class="col-md-4">
-                            <div class="io-line">Defined in <a href="" data-line="27"
-                                    class="link-to-prism">src/modules/gestion/controllers/medicos.controller.ts:27</a></div>
+                            <div class="io-line">Defined in <a href="" data-line="45"
+                                    class="link-to-prism">src/modules/gestion/controllers/medicos.controller.ts:45</a></div>
                         </td>
                     </tr>
 
@@ -294,7 +318,7 @@
                                         <tr>
                                                 <td>req</td>
                                             <td>
-                                                        <code>unknown</code>
+                                                            <code><a href="../interfaces/UsuarioAutenticado.html" target="_self" >{ user: UsuarioAutenticado }</a></code>
                                             </td>
 
                                             <td>
@@ -333,8 +357,61 @@
         <tbody>
             <tr>
                 <td class="col-md-4">
+                    <a name="listarMedicos"></a>
+                    <span class="name">
+                            <span class="modifier"></span>
+                            <span class="modifier"></span>
+                            <span class="modifier"></span>
+                            <span class="modifier">Async</span>
+                        <span ><b>listarMedicos</b></span>
+                        <a href="#listarMedicos"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                        <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>listarMedicos()</code>
+                </td>
+            </tr>
+
+            <tr>
+                <td class="col-md-4">
+                    <b>Decorators : </b>
+                    <br />
+                    <code>@Get()<br />@ApiOperation({summary: &#x27;Listar los médicos (ruta pública)&#x27;})<br />@ApiOkResponse({type: undefined})<br /></code>
+                </td>
+            </tr>
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="25"
+                                    class="link-to-prism">src/modules/gestion/controllers/medicos.controller.ts:25</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                        <div class="io-description">
+                            <b>Returns : </b>    <code>unknown</code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
                     <a name="modificarValor"></a>
                     <span class="name">
+                            <span class="modifier"></span>
+                            <span class="modifier"></span>
+                            <span class="modifier"></span>
+                            <span class="modifier"></span>
                             <span class="modifier"></span>
                             <span class="modifier"></span>
                             <span class="modifier">Async</span>
@@ -354,14 +431,14 @@
                 <td class="col-md-4">
                     <b>Decorators : </b>
                     <br />
-                    <code>@Patch(&#x27;:id/valor-consulta&#x27;)<br />@Roles(RolesUsuarios.ADMINISTRADOR)<br /></code>
+                    <code>@Patch(&#x27;:id/valor-consulta&#x27;)<br />@ApiBearerAuth()<br />@UseGuards(JwtAuthGuard, RolesGuard)<br />@Roles(RolesUsuarios.ADMINISTRADOR)<br />@ApiOperation({summary: &#x27;Modificar el valor de la consulta de un médico (el id es el del médico)&#x27;})<br />@ApiOkResponse({type: MedicoResponseDto})<br /></code>
                 </td>
             </tr>
 
                     <tr>
                         <td class="col-md-4">
-                            <div class="io-line">Defined in <a href="" data-line="33"
-                                    class="link-to-prism">src/modules/gestion/controllers/medicos.controller.ts:33</a></div>
+                            <div class="io-line">Defined in <a href="" data-line="59"
+                                    class="link-to-prism">src/modules/gestion/controllers/medicos.controller.ts:59</a></div>
                         </td>
                     </tr>
 
@@ -427,6 +504,10 @@
                     <span class="name">
                             <span class="modifier"></span>
                             <span class="modifier"></span>
+                            <span class="modifier"></span>
+                            <span class="modifier"></span>
+                            <span class="modifier"></span>
+                            <span class="modifier"></span>
                             <span class="modifier">Async</span>
                         <span ><b>verTurnos</b></span>
                         <a href="#verTurnos"><span class="icon ion-ios-link"></span></a>
@@ -436,7 +517,7 @@
             <tr>
                 <td class="col-md-4">
                         <span class="modifier-icon icon ion-ios-reset"></span>
-                    <code>verTurnos(req: unknown, fecha?: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a>)</code>
+                    <code>verTurnos(req: <a href="../interfaces/UsuarioAutenticado.html" target="_self">{ user: UsuarioAutenticado }</a>, queryDto: <a href="../classes/FiltrarTurnosMedicoDto.html" target="_self">FiltrarTurnosMedicoDto</a>)</code>
                 </td>
             </tr>
 
@@ -444,14 +525,14 @@
                 <td class="col-md-4">
                     <b>Decorators : </b>
                     <br />
-                    <code>@Get(&#x27;turnos&#x27;)<br />@Roles(RolesUsuarios.MEDICO)<br /></code>
+                    <code>@Get(&#x27;turnos&#x27;)<br />@ApiBearerAuth()<br />@UseGuards(JwtAuthGuard, RolesGuard)<br />@Roles(RolesUsuarios.MEDICO)<br />@ApiOperation({summary: &#x27;Ver los turnos reservados del médico para una fecha&#x27;})<br />@ApiOkResponse({type: undefined})<br /></code>
                 </td>
             </tr>
 
                     <tr>
                         <td class="col-md-4">
-                            <div class="io-line">Defined in <a href="" data-line="21"
-                                    class="link-to-prism">src/modules/gestion/controllers/medicos.controller.ts:21</a></div>
+                            <div class="io-line">Defined in <a href="" data-line="35"
+                                    class="link-to-prism">src/modules/gestion/controllers/medicos.controller.ts:35</a></div>
                         </td>
                     </tr>
 
@@ -474,7 +555,7 @@
                                         <tr>
                                                 <td>req</td>
                                             <td>
-                                                        <code>unknown</code>
+                                                            <code><a href="../interfaces/UsuarioAutenticado.html" target="_self" >{ user: UsuarioAutenticado }</a></code>
                                             </td>
 
                                             <td>
@@ -484,13 +565,13 @@
 
                                         </tr>
                                         <tr>
-                                                <td>fecha</td>
+                                                <td>queryDto</td>
                                             <td>
-                                                            <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+                                                            <code><a href="../classes/FiltrarTurnosMedicoDto.html" target="_self" >FiltrarTurnosMedicoDto</a></code>
                                             </td>
 
                                             <td>
-                                                    Yes
+                                                    No
                                             </td>
 
 
@@ -515,39 +596,65 @@
 
     <div class="tab-pane fade  tab-source-code" id="source">
         <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">// src/modules/gestion/controllers/medicos.controller.ts
-import { Controller, Get, Patch, Body, Param, Query, UseGuards, Req } from &#x27;@nestjs/common&#x27;;
+import { Controller, Get, Patch, Body, Param, ParseIntPipe, Query, UseGuards, Req } from &#x27;@nestjs/common&#x27;;
+import { ApiTags, ApiBearerAuth, ApiOperation, ApiOkResponse } from &#x27;@nestjs/swagger&#x27;;
 import { MedicosService } from &#x27;../services/medicos.service&#x27;;
+import { UsuarioAutenticado } from &#x27;../services/reservas.service&#x27;;
 import { ActualizarEstadoReservaDto } from &#x27;../dtos/input/actualizar-estado-reserva.dto&#x27;;
 import { ModificarValorConsultaDto } from &#x27;../dtos/input/modificar-valor-consulta.dto&#x27;;
+import { FiltrarTurnosMedicoDto } from &#x27;../dtos/input/filtrar-turnos-medico.dto&#x27;;
+import { MedicoResponseDto } from &#x27;../dtos/output/medico-response.dto&#x27;;
+import { ReservaResponseDto } from &#x27;../dtos/output/reserva-response.dto&#x27;;
 import { JwtAuthGuard } from &#x27;../../auth/guards/jwt-auth.guard&#x27;;
 import { RolesGuard } from &#x27;../../auth/guards/roles.guard&#x27;;
 import { Roles } from &#x27;../../auth/decorators/roles.decorator&#x27;;
 import { RolesUsuarios } from &#x27;../enums/roles-usuarios.enum&#x27;;
-import { ApiTags, ApiBearerAuth } from &#x27;@nestjs/swagger&#x27;;
 
 @ApiTags(&#x27;Médicos&#x27;)
-@ApiBearerAuth()
-@UseGuards(JwtAuthGuard, RolesGuard)
 @Controller(&#x27;medicos&#x27;)
 export class MedicosController {
   constructor(private readonly medicosService: MedicosService) {}
 
+  // Público: se usa en el Home para mostrar los médicos
+  @Get()
+  @ApiOperation({ summary: &#x27;Listar los médicos (ruta pública)&#x27; })
+  @ApiOkResponse({ type: [MedicoResponseDto] })
+  async listarMedicos() {
+    return this.medicosService.listarTodos();
+  }
+
   @Get(&#x27;turnos&#x27;)
+  @ApiBearerAuth()
+  @UseGuards(JwtAuthGuard, RolesGuard)
   @Roles(RolesUsuarios.MEDICO)
-  async verTurnos(@Req() req, @Query(&#x27;fecha&#x27;) fecha?: string) {
-    return this.medicosService.listarTurnosMedico(req.user.id, fecha);
+  @ApiOperation({ summary: &#x27;Ver los turnos reservados del médico para una fecha&#x27; })
+  @ApiOkResponse({ type: [ReservaResponseDto] })
+  async verTurnos(@Req() req: { user: UsuarioAutenticado }, @Query() queryDto: FiltrarTurnosMedicoDto) {
+    return this.medicosService.listarTurnosMedico(req.user.id, queryDto.fecha);
   }
 
   @Patch(&#x27;turnos/:id/estado&#x27;)
+  @ApiBearerAuth()
+  @UseGuards(JwtAuthGuard, RolesGuard)
   @Roles(RolesUsuarios.MEDICO)
-  async actualizarEstadoTurno(@Param(&#x27;id&#x27;) id: number, @Req() req, @Body() dto: ActualizarEstadoReservaDto) {
-    return this.medicosService.actualizarEstadoReserva(Number(id), req.user.id, dto);
+  @ApiOperation({ summary: &#x27;Marcar un turno propio como ATENDIDO o AUSENTE&#x27; })
+  @ApiOkResponse({ type: ReservaResponseDto })
+  async actualizarEstadoTurno(
+    @Param(&#x27;id&#x27;, ParseIntPipe) id: number,
+    @Req() req: { user: UsuarioAutenticado },
+    @Body() dto: ActualizarEstadoReservaDto,
+  ) {
+    return this.medicosService.actualizarEstadoReserva(id, req.user.id, dto);
   }
 
   @Patch(&#x27;:id/valor-consulta&#x27;)
+  @ApiBearerAuth()
+  @UseGuards(JwtAuthGuard, RolesGuard)
   @Roles(RolesUsuarios.ADMINISTRADOR)
-  async modificarValor(@Param(&#x27;id&#x27;) id: number, @Body() dto: ModificarValorConsultaDto) {
-    return this.medicosService.modificarValorConsulta(Number(id), dto);
+  @ApiOperation({ summary: &#x27;Modificar el valor de la consulta de un médico (el id es el del médico)&#x27; })
+  @ApiOkResponse({ type: MedicoResponseDto })
+  async modificarValor(@Param(&#x27;id&#x27;, ParseIntPipe) id: number, @Body() dto: ModificarValorConsultaDto) {
+    return this.medicosService.modificarValorConsulta(id, dto);
   }
 }</code></pre>
     </div>

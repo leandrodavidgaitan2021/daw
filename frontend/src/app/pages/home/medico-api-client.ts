@@ -2,20 +2,13 @@ import { HttpClient } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 
+// Misma forma que el MedicoResponseDto del backend (datos planos)
 export interface MedicoResponse {
   id: number;
-  idUsuario: number;
-  matricula: string;
+  matricula: number;
   valorConsulta: number;
-  usuario: {
-    id: number;
-    documento: string;
-    apellidos: string;
-    nombres: string;
-    email: string;
-    estado: string;
-    rol: string;
-  };
+  nombres: string;
+  apellidos: string;
 }
 
 @Injectable({

@@ -14,8 +14,8 @@ export class Medico {
   @JoinColumn({ name: 'id_usuario' })
   usuario: Usuario;
 
-  @Column({ type: 'varchar', unique: true })
-  matricula: string;
+  @Column({ type: 'int', unique: true })
+  matricula: number;
 
   @Column({ name: 'valor_consulta', type: 'int', nullable: false })
   valorConsulta: number;

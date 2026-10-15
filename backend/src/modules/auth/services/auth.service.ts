@@ -6,6 +6,7 @@ import { JwtService } from '@nestjs/jwt';
 import * as bcrypt from 'bcrypt';
 import { Usuario } from '../../gestion/entities/usuario.entity';
 import { EstadosUsuarios } from '../../gestion/enums/estados-usuarios.enum';
+import { LoginResponseDto } from '../dtos/login-response.dto';
 
 @Injectable()
 export class AuthService {
@@ -15,41 +16,37 @@ export class AuthService {
     private readonly jwtService: JwtService,
   ) {}
 
-  async login(correo: string, clave: string) {
-    // Nota: Si tu entidad usa 'email' en vez de 'correo', cámbialo aquí en el 'where'
-    const usuario = await this.usuarioRepo.findOne({ where: { email: correo } as any });
-    if (!usuario) {
-      throw new UnauthorizedException('Credenciales inválidas (correo no encontrado).');
+  async login(correo: string, clave: string): Promise<LoginResponseDto> {
+    const usuario = await this.usuarioRepo.findOne({ where: { email: correo } });
+
+    // Un solo mensaje para correo inexistente o clave incorrecta,
+    // así no se revela qué correos están registrados
+    const claveValida = usuario ? await bcrypt.compare(clave, usuario.clave) : false;
+    if (!usuario || !claveValida) {
+      throw new UnauthorizedException('Credenciales inválidas.');
     }
 
-    // Validamos que el usuario esté activo
+    // Regla: solo los usuarios ACTIVOS pueden iniciar sesión
     if (usuario.estado !== EstadosUsuarios.ACTIVO) {
-      throw new ForbiddenException('Su cuenta se encuentra inactiva o dada de baja.');
+      throw new ForbiddenException('Su cuenta se encuentra dada de baja.');
     }
 
-    // Comparamos la contraseña
-    const esPasswordValida = await bcrypt.compare(clave, usuario.clave);
-    if (!esPasswordValida) {
-      throw new UnauthorizedException('Credenciales inválidas (contraseña incorrecta).');
-    }
-
-    // Payload del Token JWT
+    // Datos que viajan dentro del token (el RolesGuard lee rol y estado)
     const payload = {
       id: usuario.id,
-      correo: usuario.email, // Ajusta si en tu entidad se llama email o correo
+      correo: usuario.email,
       rol: usuario.rol,
       estado: usuario.estado,
     };
-
-    const token = await this.jwtService.signAsync(payload);
+    const accessToken = await this.jwtService.signAsync(payload);
 
     return {
       message: 'Inicio de sesión exitoso',
-      accessToken: token,
+      accessToken,
       usuario: {
         id: usuario.id,
-        nombres: usuario.nombres,   // Corregido a plural según tu entidad
-        apellidos: usuario.apellidos, // Corregido a plural según tu entidad
+        nombres: usuario.nombres,
+        apellidos: usuario.apellidos,
         correo: usuario.email,
         rol: usuario.rol,
       },

@@ -1,5 +1,5 @@
 <div class="p-4 max-w-7xl mx-auto">
-  <!-- Cabecera de Bienvenida -->
+  <!-- Cabecera de bienvenida -->
   <div class="text-center mb-6">
     <h1 class="text-4xl font-bold text-900 mb-2">Clínica Médica - Sistema de Turnos</h1>
     <p class="text-lg text-600 mb-4">
@@ -7,7 +7,7 @@
     </p>
   </div>
 
-  <!-- Listado de Médicos -->
+  <!-- Listado de médicos -->
   <div class="surface-card p-4 shadow-2 border-round">
     <h2 class="text-2xl font-semibold mb-4 text-primary">Nuestros Profesionales</h2>
 
@@ -17,35 +17,32 @@
         <p class="mt-2 text-600">Cargando médicos disponibles...</p>
       </div>
     } @else {
-      <p-table 
-        [value]="medicos()" 
-        [tableStyle]="{ 'min-width': '50rem' }" 
-        class="p-datatable-striped"
+      <p-table
+        [value]="medicos()"
+        [tableStyle]="{ 'min-width': '40rem' }"
+        [stripedRows]="true"
         [paginator]="true"
         [rows]="5">
-        
+
         <ng-template pTemplate="header">
           <tr>
             <th>Nombre y Apellido</th>
             <th>Matrícula</th>
-            <th>Correo Electrónico</th>
             <th>Valor de Consulta</th>
           </tr>
         </ng-template>
 
         <ng-template pTemplate="body" let-medico>
           <tr>
-            <!-- Accedemos correctamente al objeto anidado 'usuario' -->
-            <td class="font-medium">{{ medico.usuario.nombres }} {{ medico.usuario.apellidos }}</td>
+            <td class="font-medium">{{ medico.nombres }} {{ medico.apellidos }}</td>
             <td>{{ medico.matricula }}</td>
-            <td>{{ medico.usuario.email }}</td>
             <td class="font-bold text-primary">${{ medico.valorConsulta | number }}</td>
           </tr>
         </ng-template>
 
         <ng-template pTemplate="emptymessage">
           <tr>
-            <td colspan="4" class="text-center p-4 text-600">
+            <td colspan="3" class="text-center p-4 text-600">
               No hay médicos registrados en el sistema actualmente.
             </td>
           </tr>

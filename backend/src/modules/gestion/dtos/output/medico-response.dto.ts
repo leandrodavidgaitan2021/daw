@@ -5,8 +5,8 @@ export class MedicoResponseDto {
   @ApiProperty({ example: 1, description: 'ID único del registro del médico' })
   id: number;
 
-  @ApiProperty({ example: 'MP-12345', description: 'Matrícula profesional del médico' })
-  matricula: string;
+  @ApiProperty({ example: 12345, description: 'Matrícula profesional del médico' })
+  matricula: number;
 
   @ApiProperty({ example: 15000, description: 'Valor actual de la consulta médica' })
   valorConsulta: number;
@@ -17,9 +17,10 @@ export class MedicoResponseDto {
   @ApiProperty({ example: 'Gómez', description: 'Apellido(s) del médico' })
   apellidos: string;
 
-  @ApiProperty({ example: 'carlos.gomez@clinica.com', description: 'Correo electrónico' })
+  //Como la lista es pública, no tiene por qué mostrar esos datos.
+  /*@ApiProperty({ example: 'carlos.gomez@clinica.com', description: 'Correo electrónico' })
   email: string;
 
   @ApiProperty({ example: '35123456', description: 'Documento de identidad' })
-  documento: string;
+  documento: string;*/
 }

@@ -1,24 +1,25 @@
 // src/modules/gestion/dtos/output/reserva-response.dto.ts
-import { Expose, Type } from 'class-transformer';
+import { ApiProperty } from '@nestjs/swagger';
 import { EstadosReservas } from '../../enums/estados-reservas.enum';
 import { UsuarioResponseDto } from './usuario-response.dto';
+import { MedicoResponseDto } from './medico-response.dto';
 
 export class ReservaResponseDto {
-  @Expose()
+  @ApiProperty({ example: 1, description: 'ID de la reserva' })
   id: number;
 
-  @Expose()
+  @ApiProperty({ example: '2026-10-28T13:00:00.000Z', description: 'Fecha y hora del turno' })
   fechaHora: Date;
 
-  @Expose()
+  @ApiProperty({ enum: EstadosReservas, example: EstadosReservas.ACTIVO })
   estado: EstadosReservas;
 
-  @Expose()
+  @ApiProperty({ example: 15000, description: 'Valor de la consulta congelado al reservar' })
   valorConsulta: number;
 
-  @Expose()
-  @Type(() => UsuarioResponseDto)
+  @ApiProperty({ type: () => UsuarioResponseDto, description: 'Paciente que reservó el turno' })
   paciente: UsuarioResponseDto;
 
-  // Puedes agregar también la estructura del médico si lo necesitas
+  @ApiProperty({ type: () => MedicoResponseDto, description: 'Médico que atiende el turno' })
+  medico: MedicoResponseDto;
 }

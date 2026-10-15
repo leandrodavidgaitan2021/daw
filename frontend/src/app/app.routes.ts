@@ -1,15 +1,32 @@
 import { Routes } from '@angular/router';
 import { HomeComponent } from './pages/home/home';
 import { MedicoTurnosComponent } from './pages/medico/medico-turnos';
+import { MisTurnosComponent } from './pages/paciente/mis-turnos';
+import { ReservarTurnoComponent } from './pages/paciente/reservar-turno';
 import { LoginComponent } from './auth/login/login';
+import { rolGuard } from './auth/auth-guard';
 
 export const routes: Routes = [
   { path: '', component: HomeComponent },
   { path: 'login', component: LoginComponent },
-  { 
-    path: 'medico/turnos', 
+
+  {
+    path: 'medico/turnos',
     component: MedicoTurnosComponent,
-    // canActivate: [authGuard] // Opcional si ya usas guards de protección
+    canActivate: [rolGuard(['MEDICO'])],
   },
-  { path: '**', redirectTo: '' } // Redireccionar rutas desconocidas al Home
+
+  {
+    path: 'paciente/mis-turnos',
+    component: MisTurnosComponent,
+    canActivate: [rolGuard(['PACIENTE'])],
+  },
+
+  {
+    path: 'paciente/reservar',
+    component: ReservarTurnoComponent,
+    canActivate: [rolGuard(['PACIENTE'])],
+  },
+
+  { path: '**', redirectTo: '' },
 ];

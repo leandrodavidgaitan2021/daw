@@ -1,27 +1,27 @@
 // src/modules/gestion/dtos/output/usuario-response.dto.ts
-import { Expose } from 'class-transformer';
+import { ApiProperty } from '@nestjs/swagger';
 import { EstadosUsuarios } from '../../enums/estados-usuarios.enum';
 import { RolesUsuarios } from '../../enums/roles-usuarios.enum';
 
 export class UsuarioResponseDto {
-  @Expose()
+  @ApiProperty({ example: 1, description: 'ID del usuario' })
   id: number;
 
-  @Expose()
+  @ApiProperty({ example: '33333333', description: 'Documento de identidad' })
   documento: string;
 
-  @Expose()
+  @ApiProperty({ example: 'Gómez', description: 'Apellido(s)' })
   apellidos: string;
 
-  @Expose()
+  @ApiProperty({ example: 'Juan', description: 'Nombre(s)' })
   nombres: string;
 
-  @Expose()
+  @ApiProperty({ example: 'paciente@clinica.com', description: 'Correo electrónico' })
   email: string;
 
-  @Expose()
+  @ApiProperty({ enum: EstadosUsuarios, example: EstadosUsuarios.ACTIVO })
   estado: EstadosUsuarios;
 
-  @Expose()
+  @ApiProperty({ enum: RolesUsuarios, example: RolesUsuarios.PACIENTE })
   rol: RolesUsuarios;
 }

@@ -48,7 +48,7 @@
 
         <ng-template pTemplate="body" let-turno>
           <tr>
-            <td class="font-bold">{{ turno.fechaHora | date:'shortTime' }}</td>
+            <td class="font-bold">{{ turno.fechaHora | date:'HH:mm' }}</td>
             <td class="font-medium">{{ turno.paciente.nombres }} {{ turno.paciente.apellidos }}</td>
             <td>{{ turno.paciente.documento }}</td>
             <td>{{ turno.paciente.email }}</td>

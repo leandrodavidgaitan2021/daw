@@ -187,6 +187,12 @@
                         <ul class="index-list">
                             <li>
                                 <span class="reference-badge reference-badge--method" aria-hidden="true">M</span>
+                                    <span class="modifier">Private</span>
+                                    <span class="modifier">Async</span>
+                                <a href="#buscarComoDto" >buscarComoDto</a>
+                            </li>
+                            <li>
+                                <span class="reference-badge reference-badge--method" aria-hidden="true">M</span>
                                     <span class="modifier">Async</span>
                                 <a href="#cancelarReserva" >cancelarReserva</a>
                             </li>
@@ -223,12 +229,12 @@
             <tbody>
                 <tr>
                     <td class="col-md-4">
-<code>constructor(reservaRepo: <a href="../entitys/Reserva.html" target="_self">Repository&lt;Reserva&gt;</a>, medicoRepo: <a href="../entitys/Medico.html" target="_self">Repository&lt;Medico&gt;</a>)</code>
+<code>constructor(reservaRepo: <a href="../entitys/Reserva.html" target="_self">Repository&lt;Reserva&gt;</a>, medicoRepo: <a href="../entitys/Medico.html" target="_self">Repository&lt;Medico&gt;</a>, usuarioRepo: <a href="../entitys/Usuario.html" target="_self">Repository&lt;Usuario&gt;</a>)</code>
                     </td>
                 </tr>
                         <tr>
                             <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="12" class="link-to-prism">src/modules/gestion/services/reservas.service.ts:12</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="22" class="link-to-prism">src/modules/gestion/services/reservas.service.ts:22</a></div>
                             </td>
                         </tr>
 
@@ -269,6 +275,18 @@
                                                     </td>
                                                     
                                                 </tr>
+                                                <tr>
+                                                        <td>usuarioRepo</td>
+                                                  
+                                                        <td>
+                                                                        <code><a href="../entitys/Usuario.html" target="_self" >Repository&lt;Usuario&gt;</a></code>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+                                                </tr>
                                         </tbody>
                                     </table>
                             </div>
@@ -287,6 +305,76 @@
         <tbody>
             <tr>
                 <td class="col-md-4">
+                    <a name="buscarComoDto"></a>
+                    <span class="name">
+                            <span class="modifier">Private</span>
+                            <span class="modifier">Async</span>
+                        <span ><b>buscarComoDto</b></span>
+                        <a href="#buscarComoDto"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                        <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>buscarComoDto(id: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank">number</a>)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="152"
+                                    class="link-to-prism">src/modules/gestion/services/reservas.service.ts:152</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>id</td>
+                                            <td>
+                                                            <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank" >number</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="../classes/ReservaResponseDto.html" target="_self" >Promise&lt;ReservaResponseDto&gt;</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
                     <a name="cancelarReserva"></a>
                     <span class="name">
                             <span class="modifier">Async</span>
@@ -298,15 +386,15 @@
             <tr>
                 <td class="col-md-4">
                         <span class="modifier-icon icon ion-ios-reset"></span>
-                    <code>cancelarReserva(idReserva: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank">number</a>, usuarioLogueado: <a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank">any</a>)</code>
+                    <code>cancelarReserva(idReserva: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank">number</a>, usuarioLogueado: <a href="../interfaces/UsuarioAutenticado.html" target="_self">UsuarioAutenticado</a>)</code>
                 </td>
             </tr>
 
 
                     <tr>
                         <td class="col-md-4">
-                            <div class="io-line">Defined in <a href="" data-line="74"
-                                    class="link-to-prism">src/modules/gestion/services/reservas.service.ts:74</a></div>
+                            <div class="io-line">Defined in <a href="" data-line="111"
+                                    class="link-to-prism">src/modules/gestion/services/reservas.service.ts:111</a></div>
                         </td>
                     </tr>
 
@@ -341,7 +429,7 @@
                                         <tr>
                                                 <td>usuarioLogueado</td>
                                             <td>
-                                                            <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >any</a></code>
+                                                            <code><a href="../interfaces/UsuarioAutenticado.html" target="_self" >UsuarioAutenticado</a></code>
                                             </td>
 
                                             <td>
@@ -354,7 +442,7 @@
                                 </table>
                             </div>
                         <div class="io-description">
-                            <b>Returns : </b>    <code>unknown</code>
+                            <b>Returns : </b>        <code><a href="../classes/ReservaResponseDto.html" target="_self" >Promise&lt;ReservaResponseDto&gt;</a></code>
 
                         </div>
                             <div class="io-description">
@@ -379,15 +467,15 @@
             <tr>
                 <td class="col-md-4">
                         <span class="modifier-icon icon ion-ios-reset"></span>
-                    <code>crearReserva(dto: <a href="../classes/CrearReservaDto.html" target="_self">CrearReservaDto</a>, usuarioLogueado: <a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank">any</a>)</code>
+                    <code>crearReserva(dto: <a href="../classes/CrearReservaDto.html" target="_self">CrearReservaDto</a>, usuarioLogueado: <a href="../interfaces/UsuarioAutenticado.html" target="_self">UsuarioAutenticado</a>)</code>
                 </td>
             </tr>
 
 
                     <tr>
                         <td class="col-md-4">
-                            <div class="io-line">Defined in <a href="" data-line="20"
-                                    class="link-to-prism">src/modules/gestion/services/reservas.service.ts:20</a></div>
+                            <div class="io-line">Defined in <a href="" data-line="32"
+                                    class="link-to-prism">src/modules/gestion/services/reservas.service.ts:32</a></div>
                         </td>
                     </tr>
 
@@ -422,7 +510,7 @@
                                         <tr>
                                                 <td>usuarioLogueado</td>
                                             <td>
-                                                            <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >any</a></code>
+                                                            <code><a href="../interfaces/UsuarioAutenticado.html" target="_self" >UsuarioAutenticado</a></code>
                                             </td>
 
                                             <td>
@@ -435,7 +523,7 @@
                                 </table>
                             </div>
                         <div class="io-description">
-                            <b>Returns : </b>    <code>unknown</code>
+                            <b>Returns : </b>        <code><a href="../classes/ReservaResponseDto.html" target="_self" >Promise&lt;ReservaResponseDto&gt;</a></code>
 
                         </div>
                             <div class="io-description">
@@ -467,8 +555,8 @@
 
                     <tr>
                         <td class="col-md-4">
-                            <div class="io-line">Defined in <a href="" data-line="70"
-                                    class="link-to-prism">src/modules/gestion/services/reservas.service.ts:70</a></div>
+                            <div class="io-line">Defined in <a href="" data-line="106"
+                                    class="link-to-prism">src/modules/gestion/services/reservas.service.ts:106</a></div>
                         </td>
                     </tr>
 
@@ -477,7 +565,7 @@
                 <td class="col-md-4">
 
                         <div class="io-description">
-                            <b>Returns : </b>    <code>unknown</code>
+                            <b>Returns : </b>        <code><a href="../classes/ReservaResponseDto.html" target="_self" >Promise&lt;ReservaResponseDto[]&gt;</a></code>
 
                         </div>
                 </td>
@@ -506,8 +594,8 @@
 
                     <tr>
                         <td class="col-md-4">
-                            <div class="io-line">Defined in <a href="" data-line="63"
-                                    class="link-to-prism">src/modules/gestion/services/reservas.service.ts:63</a></div>
+                            <div class="io-line">Defined in <a href="" data-line="98"
+                                    class="link-to-prism">src/modules/gestion/services/reservas.service.ts:98</a></div>
                         </td>
                     </tr>
 
@@ -543,7 +631,7 @@
                                 </table>
                             </div>
                         <div class="io-description">
-                            <b>Returns : </b>    <code>unknown</code>
+                            <b>Returns : </b>        <code><a href="../classes/ReservaResponseDto.html" target="_self" >Promise&lt;ReservaResponseDto[]&gt;</a></code>
 
                         </div>
                             <div class="io-description">
@@ -565,9 +653,19 @@ import { InjectRepository } from &#x27;@nestjs/typeorm&#x27;;
 import { Repository } from &#x27;typeorm&#x27;;
 import { Reserva } from &#x27;../entities/reserva.entity&#x27;;
 import { Medico } from &#x27;../entities/medico.entity&#x27;;
+import { Usuario } from &#x27;../entities/usuario.entity&#x27;;
 import { CrearReservaDto } from &#x27;../dtos/input/crear-reserva.dto&#x27;;
+import { ReservaResponseDto } from &#x27;../dtos/output/reserva-response.dto&#x27;;
 import { EstadosReservas } from &#x27;../enums/estados-reservas.enum&#x27;;
+import { EstadosUsuarios } from &#x27;../enums/estados-usuarios.enum&#x27;;
 import { RolesUsuarios } from &#x27;../enums/roles-usuarios.enum&#x27;;
+import { aReservaDto } from &#x27;../mappers/mappers&#x27;;
+
+// Datos del usuario que viajan dentro del token JWT
+export interface UsuarioAutenticado {
+  id: number;
+  rol: RolesUsuarios;
+}
 
 @Injectable()
 export class ReservasService {
@@ -576,40 +674,64 @@ export class ReservasService {
     private readonly reservaRepo: Repository&lt;Reserva&gt;,
     @InjectRepository(Medico)
     private readonly medicoRepo: Repository&lt;Medico&gt;,
+    @InjectRepository(Usuario)
+    private readonly usuarioRepo: Repository&lt;Usuario&gt;,
   ) {}
 
-  async crearReserva(dto: CrearReservaDto, usuarioLogueado: any) {
+  async crearReserva(dto: CrearReservaDto, usuarioLogueado: UsuarioAutenticado): Promise&lt;ReservaResponseDto&gt; {
     const fechaHoraReserva &#x3D; new Date(dto.fechaHora);
     const ahora &#x3D; new Date();
 
-    // Regla: Máximo 30 días de anticipación[cite: 1]
+    // Regla: máximo 30 días de anticipación y nunca en el pasado
     const limite30Dias &#x3D; new Date();
     limite30Dias.setDate(ahora.getDate() + 30);
     if (fechaHoraReserva &gt; limite30Dias || fechaHoraReserva &lt; ahora) {
       throw new BadRequestException(&#x27;Las reservas se pueden realizar con un máximo de 30 días de anticipación y no en el pasado.&#x27;);
     }
 
-    // Regla: Horario de atención de 8hs a 16hs, turnos de 1 hora[cite: 1]
+    // Regla: horario de atención de 8 a 16 hs, turnos de exactamente 1 hora
     const hora &#x3D; fechaHoraReserva.getHours();
     const minutos &#x3D; fechaHoraReserva.getMinutes();
     if (hora &lt; 8 || hora &gt;&#x3D; 16 || minutos !&#x3D;&#x3D; 0) {
       throw new BadRequestException(&#x27;El horario de atención es de 8:00 a 16:00 hs y los turnos duran exactamente una hora.&#x27;);
     }
 
-    // Regla: No se debe permitir reservar en un horario ya ocupado[cite: 1]
+    const medico &#x3D; await this.medicoRepo.findOne({ where: { id: dto.idMedico } });
+    if (!medico) throw new NotFoundException(&#x27;Médico no encontrado.&#x27;);
+
+    // Regla: no se puede reservar un horario ya ocupado (los cancelados liberan el horario)
     const ocupado &#x3D; await this.reservaRepo.findOne({
-      where: { idMedico: dto.idMedico, fechaHora: fechaHoraReserva, estado: EstadosReservas.ACTIVO },
+      where: { idMedico: medico.id, fechaHora: fechaHoraReserva, estado: EstadosReservas.ACTIVO },
     });
     if (ocupado) {
       throw new BadRequestException(&#x27;El médico ya tiene un turno reservado en ese horario.&#x27;);
     }
 
-    const medico &#x3D; await this.medicoRepo.findOne({ where: { id: dto.idMedico } });
-    if (!medico) throw new NotFoundException(&#x27;Médico no encontrado.&#x27;);
+    // El paciente reserva siempre a su nombre; el administrador indica a quién
+    let idPacienteFinal: number;
 
-    const idPacienteFinal &#x3D; usuarioLogueado.rol &#x3D;&#x3D;&#x3D; RolesUsuarios.PACIENTE ? usuarioLogueado.id : dto.idPaciente;
+    if (usuarioLogueado.rol &#x3D;&#x3D;&#x3D; RolesUsuarios.PACIENTE) {
+      idPacienteFinal &#x3D; usuarioLogueado.id;
+    } else if (usuarioLogueado.rol &#x3D;&#x3D;&#x3D; RolesUsuarios.ADMINISTRADOR) {
+      if (!dto.idPaciente) {
+        throw new BadRequestException(&#x27;El administrador debe especificar el ID del paciente para la reserva.&#x27;);
+      }
 
-    // Regla: Se congela el valor de la consulta al momento en que se realizó la reserva[cite: 1]
+      // Regla: un médico no puede reservar un turno consigo mismo
+      if (medico.idUsuario &#x3D;&#x3D;&#x3D; dto.idPaciente) {
+        throw new BadRequestException(&#x27;Un médico no puede realizar una reserva de turno consigo mismo.&#x27;);
+      }
+
+      const paciente &#x3D; await this.usuarioRepo.findOne({ where: { id: dto.idPaciente } });
+      if (!paciente || paciente.rol !&#x3D;&#x3D; RolesUsuarios.PACIENTE || paciente.estado !&#x3D;&#x3D; EstadosUsuarios.ACTIVO) {
+        throw new BadRequestException(&#x27;El idPaciente no corresponde a un paciente activo.&#x27;);
+      }
+      idPacienteFinal &#x3D; paciente.id;
+    } else {
+      throw new ForbiddenException(&#x27;No autorizado para crear reservas.&#x27;);
+    }
+
+    // Regla: se congela el valor de la consulta al momento de reservar
     const nuevaReserva &#x3D; this.reservaRepo.create({
       idMedico: medico.id,
       idPaciente: idPacienteFinal,
@@ -617,32 +739,42 @@ export class ReservasService {
       estado: EstadosReservas.ACTIVO,
       valorConsulta: medico.valorConsulta,
     });
+    const guardada &#x3D; await this.reservaRepo.save(nuevaReserva);
 
-    return await this.reservaRepo.save(nuevaReserva);
+    return this.buscarComoDto(guardada.id);
   }
 
-  async listarTurnosPaciente(idPaciente: number) {
-    return await this.reservaRepo.find({
+  async listarTurnosPaciente(idPaciente: number): Promise&lt;ReservaResponseDto[]&gt; {
+    const reservas &#x3D; await this.reservaRepo.find({
       where: { idPaciente },
-      relations: [&#x27;medico&#x27;, &#x27;medico.usuario&#x27;],
+      order: { fechaHora: &#x27;ASC&#x27; },
     });
+    return reservas.map(aReservaDto);
   }
 
-  async listarTodas() {
-    return await this.reservaRepo.find({ relations: [&#x27;medico&#x27;, &#x27;medico.usuario&#x27;, &#x27;paciente&#x27;] });
+  async listarTodas(): Promise&lt;ReservaResponseDto[]&gt; {
+    const reservas &#x3D; await this.reservaRepo.find({ order: { fechaHora: &#x27;ASC&#x27; } });
+    return reservas.map(aReservaDto);
   }
 
-  async cancelarReserva(idReserva: number, usuarioLogueado: any) {
+  async cancelarReserva(idReserva: number, usuarioLogueado: UsuarioAutenticado): Promise&lt;ReservaResponseDto&gt; {
     const reserva &#x3D; await this.reservaRepo.findOne({ where: { id: idReserva } });
     if (!reserva) throw new NotFoundException(&#x27;Reserva no encontrada.&#x27;);
+
+    // Solo se cancelan turnos pendientes: no los atendidos, ausentes o ya cancelados
+    if (reserva.estado !&#x3D;&#x3D; EstadosReservas.ACTIVO) {
+      throw new BadRequestException(&#x27;Solo se pueden cancelar turnos en estado ACTIVO.&#x27;);
+    }
 
     const ahora &#x3D; new Date();
     const fechaReserva &#x3D; new Date(reserva.fechaHora);
 
     if (usuarioLogueado.rol &#x3D;&#x3D;&#x3D; RolesUsuarios.PACIENTE) {
-      if (reserva.idPaciente !&#x3D;&#x3D; usuarioLogueado.id) throw new ForbiddenException(&#x27;No puede cancelar turnos ajenos.&#x27;);
-      
-      // Regla: Paciente cancela solo hasta el día anterior[cite: 1]
+      if (reserva.idPaciente !&#x3D;&#x3D; usuarioLogueado.id) {
+        throw new ForbiddenException(&#x27;No puede cancelar turnos ajenos.&#x27;);
+      }
+
+      // Regla: el paciente cancela solo hasta el día anterior a la consulta
       const diaAnterior &#x3D; new Date(fechaReserva);
       diaAnterior.setDate(diaAnterior.getDate() - 1);
       diaAnterior.setHours(23, 59, 59, 999);
@@ -651,7 +783,7 @@ export class ReservasService {
         throw new BadRequestException(&#x27;Los pacientes solo pueden cancelar hasta el día anterior a la consulta.&#x27;);
       }
     } else if (usuarioLogueado.rol &#x3D;&#x3D;&#x3D; RolesUsuarios.ADMINISTRADOR) {
-      // Regla: Administrador cancela hasta el momento en que inicia la consulta[cite: 1]
+      // Regla: el administrador cancela hasta el momento en que inicia la consulta
       if (ahora &gt;&#x3D; fechaReserva) {
         throw new BadRequestException(&#x27;No se puede cancelar un turno cuya consulta ya ha iniciado.&#x27;);
       }
@@ -660,7 +792,15 @@ export class ReservasService {
     }
 
     reserva.estado &#x3D; EstadosReservas.CANCELADO;
-    return await this.reservaRepo.save(reserva);
+    await this.reservaRepo.save(reserva);
+
+    return this.buscarComoDto(reserva.id);
+  }
+
+  // Vuelve a buscar la reserva (con médico, usuario y paciente) y la convierte en DTO
+  private async buscarComoDto(id: number): Promise&lt;ReservaResponseDto&gt; {
+    const reserva &#x3D; await this.reservaRepo.findOneOrFail({ where: { id } });
+    return aReservaDto(reserva);
   }
 }</code></pre>
     </div>

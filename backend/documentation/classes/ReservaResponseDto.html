@@ -187,6 +187,10 @@
                             <li>
                                 <span class="reference-badge reference-badge--property" aria-hidden="true">P</span>
                                     <span class="modifier"></span>
+                                <a href="#medico" >medico</a>
+                            </li>
+                            <li>
+                                <span class="reference-badge reference-badge--property" aria-hidden="true">P</span>
                                     <span class="modifier"></span>
                                 <a href="#paciente" >paciente</a>
                             </li>
@@ -237,13 +241,13 @@
                         <b>Decorators : </b>
                         <br />
                         <code>
-                            @Expose()<br />
+                            @ApiProperty({enum: EstadosReservas, example: undefined})<br />
                         </code>
                     </td>
                 </tr>
                     <tr>
                         <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="14" class="link-to-prism">src/modules/gestion/dtos/output/reserva-response.dto.ts:14</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="15" class="link-to-prism">src/modules/gestion/dtos/output/reserva-response.dto.ts:15</a></div>
                         </td>
                     </tr>
 
@@ -273,13 +277,13 @@
                         <b>Decorators : </b>
                         <br />
                         <code>
-                            @Expose()<br />
+                            @ApiProperty({example: &#x27;2026-10-28T13:00:00.000Z&#x27;, description: &#x27;Fecha y hora del turno&#x27;})<br />
                         </code>
                     </td>
                 </tr>
                     <tr>
                         <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="11" class="link-to-prism">src/modules/gestion/dtos/output/reserva-response.dto.ts:11</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="12" class="link-to-prism">src/modules/gestion/dtos/output/reserva-response.dto.ts:12</a></div>
                         </td>
                     </tr>
 
@@ -309,13 +313,49 @@
                         <b>Decorators : </b>
                         <br />
                         <code>
-                            @Expose()<br />
+                            @ApiProperty({example: 1, description: &#x27;ID de la reserva&#x27;})<br />
                         </code>
                     </td>
                 </tr>
                     <tr>
                         <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="8" class="link-to-prism">src/modules/gestion/dtos/output/reserva-response.dto.ts:8</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="9" class="link-to-prism">src/modules/gestion/dtos/output/reserva-response.dto.ts:9</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="medico"></a>
+                    <span class="name">
+                            <span class="modifier"></span>
+                        <span ><b>medico</b></span>
+                        <a href="#medico"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="../classes/MedicoResponseDto.html" target="_self" >MedicoResponseDto</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <b>Decorators : </b>
+                        <br />
+                        <code>
+                            @ApiProperty({type: () &#x3D;&gt; MedicoResponseDto, description: &#x27;Médico que atiende el turno&#x27;})<br />
+                        </code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="24" class="link-to-prism">src/modules/gestion/dtos/output/reserva-response.dto.ts:24</a></div>
                         </td>
                     </tr>
 
@@ -328,7 +368,6 @@
                 <td class="col-md-4">
                     <a name="paciente"></a>
                     <span class="name">
-                            <span class="modifier"></span>
                             <span class="modifier"></span>
                         <span ><b>paciente</b></span>
                         <a href="#paciente"><span class="icon ion-ios-link"></span></a>
@@ -346,7 +385,7 @@
                         <b>Decorators : </b>
                         <br />
                         <code>
-                            @Expose()<br />@Type(undefined)<br />
+                            @ApiProperty({type: () &#x3D;&gt; UsuarioResponseDto, description: &#x27;Paciente que reservó el turno&#x27;})<br />
                         </code>
                     </td>
                 </tr>
@@ -382,13 +421,13 @@
                         <b>Decorators : </b>
                         <br />
                         <code>
-                            @Expose()<br />
+                            @ApiProperty({example: 15000, description: &#x27;Valor de la consulta congelado al reservar&#x27;})<br />
                         </code>
                     </td>
                 </tr>
                     <tr>
                         <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="17" class="link-to-prism">src/modules/gestion/dtos/output/reserva-response.dto.ts:17</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="18" class="link-to-prism">src/modules/gestion/dtos/output/reserva-response.dto.ts:18</a></div>
                         </td>
                     </tr>
 
@@ -407,28 +446,29 @@
 
 
     <div class="tab-pane fade  tab-source-code" id="source">
-        <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { Expose, Type } from &#x27;class-transformer&#x27;;
+        <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { ApiProperty } from &#x27;@nestjs/swagger&#x27;;
 import { EstadosReservas } from &#x27;../../enums/estados-reservas.enum&#x27;;
 import { UsuarioResponseDto } from &#x27;./usuario-response.dto&#x27;;
+import { MedicoResponseDto } from &#x27;./medico-response.dto&#x27;;
 
 export class ReservaResponseDto {
-  @Expose()
+  @ApiProperty({ example: 1, description: &#x27;ID de la reserva&#x27; })
   id: number;
 
-  @Expose()
+  @ApiProperty({ example: &#x27;2026-10-28T13:00:00.000Z&#x27;, description: &#x27;Fecha y hora del turno&#x27; })
   fechaHora: Date;
 
-  @Expose()
+  @ApiProperty({ enum: EstadosReservas, example: EstadosReservas.ACTIVO })
   estado: EstadosReservas;
 
-  @Expose()
+  @ApiProperty({ example: 15000, description: &#x27;Valor de la consulta congelado al reservar&#x27; })
   valorConsulta: number;
 
-  @Expose()
-  @Type(() &#x3D;&gt; UsuarioResponseDto)
+  @ApiProperty({ type: () &#x3D;&gt; UsuarioResponseDto, description: &#x27;Paciente que reservó el turno&#x27; })
   paciente: UsuarioResponseDto;
 
-  // Puedes agregar también la estructura del médico si lo necesitas
+  @ApiProperty({ type: () &#x3D;&gt; MedicoResponseDto, description: &#x27;Médico que atiende el turno&#x27; })
+  medico: MedicoResponseDto;
 }</code></pre>
     </div>
 </div>

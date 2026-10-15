@@ -10,7 +10,7 @@ import { MessageService } from 'primeng/api';
 import { providePrimeNG } from 'primeng/config';
 import Aura from '@primeuix/themes/aura'; // O puedes usar Lara, Material, Nora
 // Importar tu nuevo interceptor
-import { authInterceptor } from './auth/auth-interceptor'; // <-- 2. Importar el interceptor
+import { authInterceptor } from './auth/auth-interceptor'; // <-- Importar el interceptor
 
 export const appConfig: ApplicationConfig = {
   providers: [

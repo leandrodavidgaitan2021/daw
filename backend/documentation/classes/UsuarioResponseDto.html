@@ -246,7 +246,7 @@
                         <b>Decorators : </b>
                         <br />
                         <code>
-                            @Expose()<br />
+                            @ApiProperty({example: &#x27;Gómez&#x27;, description: &#x27;Apellido(s)&#x27;})<br />
                         </code>
                     </td>
                 </tr>
@@ -282,7 +282,7 @@
                         <b>Decorators : </b>
                         <br />
                         <code>
-                            @Expose()<br />
+                            @ApiProperty({example: &#x27;33333333&#x27;, description: &#x27;Documento de identidad&#x27;})<br />
                         </code>
                     </td>
                 </tr>
@@ -318,7 +318,7 @@
                         <b>Decorators : </b>
                         <br />
                         <code>
-                            @Expose()<br />
+                            @ApiProperty({example: &#x27;paciente@clinica.com&#x27;, description: &#x27;Correo electrónico&#x27;})<br />
                         </code>
                     </td>
                 </tr>
@@ -354,7 +354,7 @@
                         <b>Decorators : </b>
                         <br />
                         <code>
-                            @Expose()<br />
+                            @ApiProperty({enum: EstadosUsuarios, example: undefined})<br />
                         </code>
                     </td>
                 </tr>
@@ -390,7 +390,7 @@
                         <b>Decorators : </b>
                         <br />
                         <code>
-                            @Expose()<br />
+                            @ApiProperty({example: 1, description: &#x27;ID del usuario&#x27;})<br />
                         </code>
                     </td>
                 </tr>
@@ -426,7 +426,7 @@
                         <b>Decorators : </b>
                         <br />
                         <code>
-                            @Expose()<br />
+                            @ApiProperty({example: &#x27;Juan&#x27;, description: &#x27;Nombre(s)&#x27;})<br />
                         </code>
                     </td>
                 </tr>
@@ -462,7 +462,7 @@
                         <b>Decorators : </b>
                         <br />
                         <code>
-                            @Expose()<br />
+                            @ApiProperty({enum: RolesUsuarios, example: undefined})<br />
                         </code>
                     </td>
                 </tr>
@@ -487,30 +487,30 @@
 
 
     <div class="tab-pane fade  tab-source-code" id="source">
-        <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { Expose } from &#x27;class-transformer&#x27;;
+        <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { ApiProperty } from &#x27;@nestjs/swagger&#x27;;
 import { EstadosUsuarios } from &#x27;../../enums/estados-usuarios.enum&#x27;;
 import { RolesUsuarios } from &#x27;../../enums/roles-usuarios.enum&#x27;;
 
 export class UsuarioResponseDto {
-  @Expose()
+  @ApiProperty({ example: 1, description: &#x27;ID del usuario&#x27; })
   id: number;
 
-  @Expose()
+  @ApiProperty({ example: &#x27;33333333&#x27;, description: &#x27;Documento de identidad&#x27; })
   documento: string;
 
-  @Expose()
+  @ApiProperty({ example: &#x27;Gómez&#x27;, description: &#x27;Apellido(s)&#x27; })
   apellidos: string;
 
-  @Expose()
+  @ApiProperty({ example: &#x27;Juan&#x27;, description: &#x27;Nombre(s)&#x27; })
   nombres: string;
 
-  @Expose()
+  @ApiProperty({ example: &#x27;paciente@clinica.com&#x27;, description: &#x27;Correo electrónico&#x27; })
   email: string;
 
-  @Expose()
+  @ApiProperty({ enum: EstadosUsuarios, example: EstadosUsuarios.ACTIVO })
   estado: EstadosUsuarios;
 
-  @Expose()
+  @ApiProperty({ enum: RolesUsuarios, example: RolesUsuarios.PACIENTE })
   rol: RolesUsuarios;
 }</code></pre>
     </div>

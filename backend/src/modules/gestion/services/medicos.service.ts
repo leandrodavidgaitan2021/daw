@@ -1,5 +1,5 @@
 // src/modules/gestion/services/medicos.service.ts
-import { Injectable, NotFoundException, ForbiddenException } from '@nestjs/common';
+import { Injectable, NotFoundException, ForbiddenException, BadRequestException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { Medico } from '../entities/medico.entity';
@@ -7,6 +7,9 @@ import { Reserva } from '../entities/reserva.entity';
 import { ActualizarEstadoReservaDto } from '../dtos/input/actualizar-estado-reserva.dto';
 import { ModificarValorConsultaDto } from '../dtos/input/modificar-valor-consulta.dto';
 import { MedicoResponseDto } from '../dtos/output/medico-response.dto';
+import { ReservaResponseDto } from '../dtos/output/reserva-response.dto';
+import { EstadosReservas } from '../enums/estados-reservas.enum';
+import { aMedicoDto, aReservaDto } from '../mappers/mappers';
 
 @Injectable()
 export class MedicosService {
@@ -23,32 +26,37 @@ export class MedicosService {
     return medico;
   }
 
-  //Litas todos los medicos
-  async listarTodos() {
-    return await this.medicoRepo.find({
-      relations: {
-        usuario: true,
-      },
-    });
+  // Lista pública de médicos (para el Home), sin datos sensibles
+  async listarTodos(): Promise<MedicoResponseDto[]> {
+    const medicos = await this.medicoRepo.find({ order: { id: 'ASC' } });
+    return medicos.map(aMedicoDto);
   }
 
-  // Médicos: pueden ver sus turnos reservados dada una fecha
-  async listarTurnosMedico(idUsuarioMedico: number, fecha?: string) {
+  // Médico: ve sus turnos reservados para una fecha (YYYY-MM-DD)
+  async listarTurnosMedico(idUsuarioMedico: number, fecha: string): Promise<ReservaResponseDto[]> {
     const medico = await this.obtenerMedicoPorIdUsuario(idUsuarioMedico);
-    
-    const query = this.reservaRepo.createQueryBuilder('reserva')
+
+    // El QueryBuilder no carga las relaciones eager solas: hay que pedirlas con join
+    const reservas = await this.reservaRepo
+      .createQueryBuilder('reserva')
       .leftJoinAndSelect('reserva.paciente', 'paciente')
-      .where('reserva.id_medico = :idMedico', { idMedico: medico.id });
+      .leftJoinAndSelect('reserva.medico', 'medico')
+      .leftJoinAndSelect('medico.usuario', 'usuarioMedico')
+      .where('reserva.idMedico = :idMedico', { idMedico: medico.id })
+      .andWhere('reserva.estado != :cancelado', { cancelado: EstadosReservas.CANCELADO })
+      .andWhere('DATE(reserva.fechaHora) = :fecha', { fecha })
+      .orderBy('reserva.fechaHora', 'ASC')
+      .getMany();
 
-    if (fecha) {
-      // Usamos el string directamente contra la función DATE de la base de datos
-      query.andWhere('DATE(reserva.fecha_hora) = :fecha', { fecha });
-    }
-
-    return await query.getMany();
+    return reservas.map(aReservaDto);
   }
 
-  async actualizarEstadoReserva(idReserva: number, idUsuarioMedico: number, dto: ActualizarEstadoReservaDto) {
+  // Médico: marca un turno propio como ATENDIDO o AUSENTE
+  async actualizarEstadoReserva(
+    idReserva: number,
+    idUsuarioMedico: number,
+    dto: ActualizarEstadoReservaDto,
+  ): Promise<ReservaResponseDto> {
     const medico = await this.obtenerMedicoPorIdUsuario(idUsuarioMedico);
     const reserva = await this.reservaRepo.findOne({ where: { id: idReserva } });
 
@@ -56,17 +64,23 @@ export class MedicosService {
     if (reserva.idMedico !== medico.id) {
       throw new ForbiddenException('Este turno no corresponde al médico autenticado.');
     }
+    if (reserva.estado !== EstadosReservas.ACTIVO) {
+      throw new BadRequestException('Solo se puede cambiar el estado de turnos ACTIVOS.');
+    }
+    if (dto.estado !== EstadosReservas.ATENDIDO && dto.estado !== EstadosReservas.AUSENTE) {
+      throw new BadRequestException('El estado debe ser ATENDIDO o AUSENTE.');
+    }
 
     reserva.estado = dto.estado;
-    return await this.reservaRepo.save(reserva);
+    return aReservaDto(await this.reservaRepo.save(reserva));
   }
 
-  // Administrador: modificar el valor de la consulta de los médicos[cite: 1]
-  async modificarValorConsulta(idMedico: number, dto: ModificarValorConsultaDto) {
+  // Administrador: modifica el valor de la consulta de un médico
+  async modificarValorConsulta(idMedico: number, dto: ModificarValorConsultaDto): Promise<MedicoResponseDto> {
     const medico = await this.medicoRepo.findOne({ where: { id: idMedico } });
     if (!medico) throw new NotFoundException('Médico no encontrado.');
 
     medico.valorConsulta = dto.valorConsulta;
-    return await this.medicoRepo.save(medico);
+    return aMedicoDto(await this.medicoRepo.save(medico));
   }
 }

@@ -121,7 +121,7 @@
 
 <div class="io-file io-file-path" data-compodoc="entity-file-path">
     <span class="icon ion-ios-document" aria-hidden="true"></span>
-    <code>src/modules/gestion/services/usuario.service.ts</code>
+    <code>src/modules/gestion/services/usuarios.service.ts</code>
 </div>
 
 <ul class="nav nav-tabs" role="tablist">
@@ -188,12 +188,12 @@
                             <li>
                                 <span class="reference-badge reference-badge--method" aria-hidden="true">M</span>
                                     <span class="modifier">Async</span>
-                                <a href="#buscarPorDocumento" >buscarPorDocumento</a>
+                                <a href="#buscarPorId" >buscarPorId</a>
                             </li>
                             <li>
                                 <span class="reference-badge reference-badge--method" aria-hidden="true">M</span>
                                     <span class="modifier">Async</span>
-                                <a href="#buscarPorId" >buscarPorId</a>
+                                <a href="#listarPacientes" >listarPacientes</a>
                             </li>
                         </ul>
                     </td>
@@ -218,7 +218,7 @@
                 </tr>
                         <tr>
                             <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="8" class="link-to-prism">src/modules/gestion/services/usuario.service.ts:8</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="12" class="link-to-prism">src/modules/gestion/services/usuarios.service.ts:12</a></div>
                             </td>
                         </tr>
 
@@ -265,75 +265,6 @@
         <tbody>
             <tr>
                 <td class="col-md-4">
-                    <a name="buscarPorDocumento"></a>
-                    <span class="name">
-                            <span class="modifier">Async</span>
-                        <span ><b>buscarPorDocumento</b></span>
-                        <a href="#buscarPorDocumento"><span class="icon ion-ios-link"></span></a>
-                    </span>
-                </td>
-            </tr>
-            <tr>
-                <td class="col-md-4">
-                        <span class="modifier-icon icon ion-ios-reset"></span>
-                    <code>buscarPorDocumento(documento: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a>)</code>
-                </td>
-            </tr>
-
-
-                    <tr>
-                        <td class="col-md-4">
-                            <div class="io-line">Defined in <a href="" data-line="14"
-                                    class="link-to-prism">src/modules/gestion/services/usuario.service.ts:14</a></div>
-                        </td>
-                    </tr>
-
-
-            <tr>
-                <td class="col-md-4">
-
-                            <div class="io-description">
-                                <b>Parameters :</b>
-                                
-                                <table class="params">
-                                    <thead>
-                                        <tr>
-                                            <td>Name</td>
-                                                <td>Type</td>
-                                            <td>Optional</td>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <tr>
-                                                <td>documento</td>
-                                            <td>
-                                                            <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
-                                            </td>
-
-                                            <td>
-                                                    No
-                                            </td>
-
-
-                                        </tr>
-                                    </tbody>
-                                </table>
-                            </div>
-                        <div class="io-description">
-                            <b>Returns : </b>        <code><a href="../entitys/Usuario.html" target="_self" >Promise&lt;Usuario&gt;</a></code>
-
-                        </div>
-                            <div class="io-description">
-                                
-                            </div>
-                </td>
-            </tr>
-        </tbody>
-    </table>
-    <table class="table table-sm table-bordered">
-        <tbody>
-            <tr>
-                <td class="col-md-4">
                     <a name="buscarPorId"></a>
                     <span class="name">
                             <span class="modifier">Async</span>
@@ -352,8 +283,8 @@
 
                     <tr>
                         <td class="col-md-4">
-                            <div class="io-line">Defined in <a href="" data-line="22"
-                                    class="link-to-prism">src/modules/gestion/services/usuario.service.ts:22</a></div>
+                            <div class="io-line">Defined in <a href="" data-line="18"
+                                    class="link-to-prism">src/modules/gestion/services/usuarios.service.ts:18</a></div>
                         </td>
                     </tr>
 
@@ -389,12 +320,51 @@
                                 </table>
                             </div>
                         <div class="io-description">
-                            <b>Returns : </b>        <code><a href="../entitys/Usuario.html" target="_self" >Promise&lt;Usuario&gt;</a></code>
+                            <b>Returns : </b>        <code><a href="../classes/UsuarioResponseDto.html" target="_self" >Promise&lt;UsuarioResponseDto&gt;</a></code>
 
                         </div>
                             <div class="io-description">
                                 
                             </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="listarPacientes"></a>
+                    <span class="name">
+                            <span class="modifier">Async</span>
+                        <span ><b>listarPacientes</b></span>
+                        <a href="#listarPacientes"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                        <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>listarPacientes()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="27"
+                                    class="link-to-prism">src/modules/gestion/services/usuarios.service.ts:27</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="../classes/UsuarioResponseDto.html" target="_self" >Promise&lt;UsuarioResponseDto[]&gt;</a></code>
+
+                        </div>
                 </td>
             </tr>
         </tbody>
@@ -410,6 +380,10 @@
 import { InjectRepository } from &#x27;@nestjs/typeorm&#x27;;
 import { Repository } from &#x27;typeorm&#x27;;
 import { Usuario } from &#x27;../entities/usuario.entity&#x27;;
+import { UsuarioResponseDto } from &#x27;../dtos/output/usuario-response.dto&#x27;;
+import { EstadosUsuarios } from &#x27;../enums/estados-usuarios.enum&#x27;;
+import { RolesUsuarios } from &#x27;../enums/roles-usuarios.enum&#x27;;
+import { aUsuarioDto } from &#x27;../mappers/mappers&#x27;;
 
 @Injectable()
 export class UsuariosService {
@@ -418,20 +392,21 @@ export class UsuariosService {
     private readonly usuarioRepo: Repository&lt;Usuario&gt;,
   ) {}
 
-  async buscarPorDocumento(documento: string): Promise&lt;Usuario&gt; {
-    const usuario &#x3D; await this.usuarioRepo.findOne({ where: { documento } });
-    if (!usuario) {
-      throw new NotFoundException(&#x27;Usuario no encontrado.&#x27;);
-    }
-    return usuario;
-  }
-
-  async buscarPorId(id: number): Promise&lt;Usuario&gt; {
+  async buscarPorId(id: number): Promise&lt;UsuarioResponseDto&gt; {
     const usuario &#x3D; await this.usuarioRepo.findOne({ where: { id } });
     if (!usuario) {
       throw new NotFoundException(&#x27;Usuario no encontrado.&#x27;);
     }
-    return usuario;
+    return aUsuarioDto(usuario);
+  }
+
+  // Pacientes activos, para que el administrador elija a quién reservarle el turno
+  async listarPacientes(): Promise&lt;UsuarioResponseDto[]&gt; {
+    const pacientes &#x3D; await this.usuarioRepo.find({
+      where: { rol: RolesUsuarios.PACIENTE, estado: EstadosUsuarios.ACTIVO },
+      order: { apellidos: &#x27;ASC&#x27;, nombres: &#x27;ASC&#x27; },
+    });
+    return pacientes.map(aUsuarioDto);
   }
 }</code></pre>
     </div>

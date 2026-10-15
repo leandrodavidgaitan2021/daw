@@ -192,6 +192,17 @@
                             <li>
                                 <span class="reference-badge reference-badge--method" aria-hidden="true">M</span>
                                     <span class="modifier"></span>
+                                    <span class="modifier"></span>
+                                    <span class="modifier"></span>
+                                    <span class="modifier"></span>
+                                    <span class="modifier">Async</span>
+                                <a href="#listarPacientes" >listarPacientes</a>
+                            </li>
+                            <li>
+                                <span class="reference-badge reference-badge--method" aria-hidden="true">M</span>
+                                    <span class="modifier"></span>
+                                    <span class="modifier"></span>
+                                    <span class="modifier"></span>
                                     <span class="modifier">Async</span>
                                 <a href="#obtenerPerfil" >obtenerPerfil</a>
                             </li>
@@ -216,8 +227,60 @@
         <tbody>
             <tr>
                 <td class="col-md-4">
+                    <a name="listarPacientes"></a>
+                    <span class="name">
+                            <span class="modifier"></span>
+                            <span class="modifier"></span>
+                            <span class="modifier"></span>
+                            <span class="modifier"></span>
+                            <span class="modifier">Async</span>
+                        <span ><b>listarPacientes</b></span>
+                        <a href="#listarPacientes"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                        <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>listarPacientes()</code>
+                </td>
+            </tr>
+
+            <tr>
+                <td class="col-md-4">
+                    <b>Decorators : </b>
+                    <br />
+                    <code>@Get(&#x27;pacientes&#x27;)<br />@Roles(RolesUsuarios.ADMINISTRADOR)<br />@ApiOperation({summary: &#x27;Listar los pacientes activos (para reservar a su nombre)&#x27;})<br />@ApiOkResponse({type: undefined})<br /></code>
+                </td>
+            </tr>
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="31"
+                                    class="link-to-prism">src/modules/gestion/controllers/usuarios.controller.ts:31</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                        <div class="io-description">
+                            <b>Returns : </b>    <code>unknown</code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
                     <a name="obtenerPerfil"></a>
                     <span class="name">
+                            <span class="modifier"></span>
+                            <span class="modifier"></span>
                             <span class="modifier"></span>
                             <span class="modifier">Async</span>
                         <span ><b>obtenerPerfil</b></span>
@@ -228,7 +291,7 @@
             <tr>
                 <td class="col-md-4">
                         <span class="modifier-icon icon ion-ios-reset"></span>
-                    <code>obtenerPerfil(req: unknown)</code>
+                    <code>obtenerPerfil(req: <a href="../interfaces/UsuarioAutenticado.html" target="_self">{ user: UsuarioAutenticado }</a>)</code>
                 </td>
             </tr>
 
@@ -236,14 +299,14 @@
                 <td class="col-md-4">
                     <b>Decorators : </b>
                     <br />
-                    <code>@Get(&#x27;perfil&#x27;)<br /></code>
+                    <code>@Get(&#x27;perfil&#x27;)<br />@ApiOperation({summary: &#x27;Ver los datos del usuario autenticado&#x27;})<br />@ApiOkResponse({type: UsuarioResponseDto})<br /></code>
                 </td>
             </tr>
 
                     <tr>
                         <td class="col-md-4">
-                            <div class="io-line">Defined in <a href="" data-line="15"
-                                    class="link-to-prism">src/modules/gestion/controllers/usuarios.controller.ts:15</a></div>
+                            <div class="io-line">Defined in <a href="" data-line="23"
+                                    class="link-to-prism">src/modules/gestion/controllers/usuarios.controller.ts:23</a></div>
                         </td>
                     </tr>
 
@@ -266,7 +329,7 @@
                                         <tr>
                                                 <td>req</td>
                                             <td>
-                                                        <code>unknown</code>
+                                                            <code><a href="../interfaces/UsuarioAutenticado.html" target="_self" >{ user: UsuarioAutenticado }</a></code>
                                             </td>
 
                                             <td>
@@ -296,20 +359,36 @@
     <div class="tab-pane fade  tab-source-code" id="source">
         <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">// src/modules/gestion/controllers/usuarios.controller.ts
 import { Controller, Get, UseGuards, Req } from &#x27;@nestjs/common&#x27;;
+import { ApiTags, ApiBearerAuth, ApiOperation, ApiOkResponse } from &#x27;@nestjs/swagger&#x27;;
 import { UsuariosService } from &#x27;../services/usuarios.service&#x27;;
+import { UsuarioAutenticado } from &#x27;../services/reservas.service&#x27;;
+import { UsuarioResponseDto } from &#x27;../dtos/output/usuario-response.dto&#x27;;
+import { RolesUsuarios } from &#x27;../enums/roles-usuarios.enum&#x27;;
 import { JwtAuthGuard } from &#x27;../../auth/guards/jwt-auth.guard&#x27;;
-import { ApiTags, ApiBearerAuth } from &#x27;@nestjs/swagger&#x27;;
+import { RolesGuard } from &#x27;../../auth/guards/roles.guard&#x27;;
+import { Roles } from &#x27;../../auth/decorators/roles.decorator&#x27;;
 
 @ApiTags(&#x27;Usuarios&#x27;)
 @ApiBearerAuth()
-@UseGuards(JwtAuthGuard)
+@UseGuards(JwtAuthGuard, RolesGuard)
 @Controller(&#x27;usuarios&#x27;)
 export class UsuariosController {
   constructor(private readonly usuariosService: UsuariosService) {}
 
+  // Sin @Roles: cualquier usuario autenticado puede ver su propio perfil
   @Get(&#x27;perfil&#x27;)
-  async obtenerPerfil(@Req() req) {
+  @ApiOperation({ summary: &#x27;Ver los datos del usuario autenticado&#x27; })
+  @ApiOkResponse({ type: UsuarioResponseDto })
+  async obtenerPerfil(@Req() req: { user: UsuarioAutenticado }) {
     return this.usuariosService.buscarPorId(req.user.id);
+  }
+
+  @Get(&#x27;pacientes&#x27;)
+  @Roles(RolesUsuarios.ADMINISTRADOR)
+  @ApiOperation({ summary: &#x27;Listar los pacientes activos (para reservar a su nombre)&#x27; })
+  @ApiOkResponse({ type: [UsuarioResponseDto] })
+  async listarPacientes() {
+    return this.usuariosService.listarPacientes();
   }
 }</code></pre>
     </div>

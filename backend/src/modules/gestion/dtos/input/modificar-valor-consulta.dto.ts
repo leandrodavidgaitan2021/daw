@@ -3,9 +3,9 @@ import { IsInt, IsNotEmpty, Min } from 'class-validator';
 import { ApiProperty } from '@nestjs/swagger';
 
 export class ModificarValorConsultaDto {
-  @ApiProperty({ description: 'Nuevo valor de la consulta médica' })
+  
+  @ApiProperty({ example: 20000, description: 'Nuevo valor de la consulta médica' })
   @IsInt()
-  @Min(0)
-  @IsNotEmpty()
+  @Min(1)
   valorConsulta: number;
 }

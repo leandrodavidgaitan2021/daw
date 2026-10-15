@@ -350,7 +350,7 @@
                         <b>Decorators : </b>
                         <br />
                         <code>
-                            @Column({type: &#x27;text&#x27;, nullable: false})<br />
+                            @Column({type: &#x27;text&#x27;, unique: true, nullable: false})<br />
                         </code>
                     </td>
                 </tr>
@@ -531,7 +531,7 @@ export class Usuario {
   @Column({ type: &#x27;text&#x27;, nullable: false })
   nombres: string;
 
-  @Column({ type: &#x27;text&#x27;, nullable: false })
+  @Column({ type: &#x27;text&#x27;, unique: true, nullable: false })
   email: string;
 
   @Column({ type: &#x27;text&#x27;, nullable: false })

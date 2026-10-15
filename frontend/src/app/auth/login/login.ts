@@ -1,9 +1,10 @@
 import { Component, inject, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { HttpErrorResponse } from '@angular/common/http';
 import { NonNullableFormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 
-// PrimeNG Modules
+// PrimeNG
 import { ButtonModule } from 'primeng/button';
 import { InputTextModule } from 'primeng/inputtext';
 import { PasswordModule } from 'primeng/password';
@@ -12,6 +13,7 @@ import { MessageService } from 'primeng/api';
 
 import { LoginApiClient } from './login-api-client';
 import { AuthStore } from '../../auth/auth-store';
+import { mensajeDeError } from '../../shared/mensaje-error';
 
 @Component({
   selector: 'app-login',
@@ -35,18 +37,25 @@ export class LoginComponent {
   private messageService = inject(MessageService);
 
   readonly isLoading = signal(false);
-  readonly submitted = signal(false); // Señal para controlar la aparición de errores
-  
-  // Controla la visibilidad del modal
+  readonly submitted = signal(false);
+
+  // Controla la visibilidad del diálogo
   visible = true;
+
+  // A qué pantalla va cada rol después de iniciar sesión
+  private readonly destinos: Record<string, string> = {
+    MEDICO: '/medico/turnos',
+    PACIENTE: '/paciente/mis-turnos',
+    ADMINISTRADOR: '/admin/turnos',
+  };
 
   readonly loginForm = this.fb.group({
     correo: ['', [Validators.required, Validators.email]],
-    clave: ['', [Validators.required, Validators.minLength(6)]]
+    clave: ['', [Validators.required]],
   });
 
   onSubmit(): void {
-    this.submitted.set(true); // Activamos la señal de intento de envío
+    this.submitted.set(true);
 
     if (this.loginForm.invalid) {
       this.loginForm.markAllAsTouched();
@@ -72,39 +81,26 @@ export class LoginComponent {
           detail: 'Has iniciado sesión exitosamente.'
         });
 
-        const rol = response.usuario.rol;
-        
-        setTimeout(() => {
-          if (rol === 'MEDICO') {
-            this.router.navigate(['/medico/turnos']);
-          } else if (rol === 'ADMINISTRADOR') {
-            this.router.navigate(['/admin/dashboard']);
-          } else {
-            this.router.navigate(['/']);
-          }
-        }, 800);
+        this.router.navigate([this.destinos[response.usuario.rol] ?? '/']);
       },
-      error: (err) => {
-        console.error('Error en el login', err);
+      error: (err: HttpErrorResponse) => {
         this.isLoading.set(false);
-
-        const errorMsg = err.error?.message || 'Ocurrió un error al iniciar sesión. Verifica tus credenciales.';
         this.messageService.add({
           severity: 'error',
-          summary: 'Error de Autenticación',
-          detail: errorMsg
+          summary: 'No se pudo iniciar sesión',
+          detail: mensajeDeError(err, 'Ocurrió un error al iniciar sesión.'),
         });
       }
     });
   }
 
-  // Método para el botón Cancelar
+  // Botón Cancelar
   onCancel(): void {
     this.visible = false;
     this.router.navigate(['/']);
   }
 
-  // Método que se ejecuta si el usuario cierra el modal (la 'X' o hace clic fuera)
+  // Se ejecuta si el usuario cierra el diálogo (la X o un clic afuera)
   onHide(): void {
     this.router.navigate(['/']);
   }

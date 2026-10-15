@@ -1,3 +1,6 @@
+import { HttpErrorResponse } from '@angular/common/http';
+import { mensajeDeError } from '../../shared/mensaje-error';
+
 import { Component, inject, OnInit, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
@@ -50,13 +53,13 @@ export class MedicoTurnosComponent implements OnInit {
         this.turnos.set(data);
         this.isLoading.set(false);
       },
-      error: (err) => {
+      error: (err: HttpErrorResponse) => {
         console.error('Error al cargar turnos:', err);
         this.isLoading.set(false);
         this.messageService.add({
           severity: 'error',
           summary: 'Error',
-          detail: 'No se pudieron cargar los turnos para la fecha seleccionada.'
+          detail: mensajeDeError(err, 'No se pudieron cargar los turnos para la fecha seleccionada.')
         });
       }
     });
@@ -72,13 +75,11 @@ export class MedicoTurnosComponent implements OnInit {
         });
         this.cargarTurnos();
       },
-      error: (err) => {
-        console.error('Error al actualizar estado:', err);
-        const errorMsg = err.error?.message || 'No se pudo actualizar el estado del turno.';
+      error: (err: HttpErrorResponse) => {
         this.messageService.add({
           severity: 'error',
           summary: 'Error',
-          detail: errorMsg
+          detail: mensajeDeError(err, 'No se pudo actualizar el estado del turno.')
         });
       }
     });
