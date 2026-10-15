@@ -1,6 +1,6 @@
+// src/modules/auth/dtos/login.dto.ts
+import { IsEmail, IsNotEmpty, IsString } from 'class-validator';
 import { ApiProperty } from '@nestjs/swagger';
-import { IsEmail, IsString } from 'class-validator';
-
 export class LoginDto {
   @ApiProperty({ 
     example: 'admin@clinica.com', 
@@ -14,5 +14,6 @@ export class LoginDto {
     description: 'Contraseña de acceso' 
   })
   @IsString()
+  @IsNotEmpty()
   clave: string;
 }

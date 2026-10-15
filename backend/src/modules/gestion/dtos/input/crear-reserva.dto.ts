@@ -1,21 +1,26 @@
-// Ejemplo en tu archivo de DTO de creación de reservas
-import { ApiProperty } from '@nestjs/swagger';
-import { IsDateString, IsNumber, IsOptional } from 'class-validator';
+// src/modules/gestion/dtos/input/crear-reserva.dto.ts
+import { ApiProperty, ApiPropertyOptional } from '@nestjs/swagger';
+import { IsDateString, IsInt, IsOptional, Min } from 'class-validator';
 
 export class CrearReservaDto {
-  @ApiProperty({ example: 1, description: 'ID del médico asignado' })
-  @IsNumber()
+  @ApiProperty({ example: 1, description: 'ID del médico' })
+  @IsInt()
+  @Min(1)
   idMedico: number;
 
-  @ApiProperty({ example: 3, description: 'ID del paciente' })
-  @IsNumber()
-  @IsOptional() // Permite que la propiedad no sea enviada por el paciente
-  idPaciente: number;
-
-  @ApiProperty({ 
-    example: '2026-10-15T13:00:00.000Z', 
-    description: 'Fecha y hora de la reserva en formato ISO 8601' 
+  @ApiPropertyOptional({
+    example: 3,
+    description: 'ID del paciente. Lo debe indicar solo el administrador; un paciente siempre reserva a su nombre.',
   })
-  @IsDateString() // Valida que sea una fecha correcta si usas class-validator
+  @IsOptional()
+  @IsInt()
+  @Min(1)
+  idPaciente?: number;
+
+  @ApiProperty({
+    example: '2026-10-28T10:00:00-03:00',
+    description: 'Fecha y hora del turno (ISO 8601), de 8:00 a 15:00 en punto, hasta 30 días desde hoy',
+  })
+  @IsDateString()
   fechaHora: string;
 }

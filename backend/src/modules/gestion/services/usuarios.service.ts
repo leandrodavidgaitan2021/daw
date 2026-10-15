@@ -4,6 +4,9 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { Usuario } from '../entities/usuario.entity';
 import { UsuarioResponseDto } from '../dtos/output/usuario-response.dto';
+import { EstadosUsuarios } from '../enums/estados-usuarios.enum';
+import { RolesUsuarios } from '../enums/roles-usuarios.enum';
+import { aUsuarioDto } from '../mappers/mappers';
 
 @Injectable()
 export class UsuariosService {
@@ -17,40 +20,15 @@ export class UsuariosService {
     if (!usuario) {
       throw new NotFoundException('Usuario no encontrado.');
     }
-    
-    // Mapeo manual a UsuarioResponseDto
-    return {
-      id: usuario.id,
-      documento: usuario.documento,
-      apellidos: usuario.apellidos,
-      nombres: usuario.nombres,
-      email: usuario.email,
-      estado: usuario.estado,
-      rol: usuario.rol,
-    };
+    return aUsuarioDto(usuario);
   }
 
-  async listarTodos(): Promise<UsuarioResponseDto[]> {
-    const usuarios = await this.usuarioRepo.createQueryBuilder('usuario')
-      .select([
-        'usuario.id',
-        'usuario.documento',
-        'usuario.apellidos',
-        'usuario.nombres',
-        'usuario.email',
-        'usuario.estado',
-        'usuario.rol',
-      ])
-      .getMany();
-
-    return usuarios.map((usuario) => ({
-      id: usuario.id,
-      documento: usuario.documento,
-      apellidos: usuario.apellidos,
-      nombres: usuario.nombres,
-      email: usuario.email,
-      estado: usuario.estado,
-      rol: usuario.rol,
-    }));
+  // Pacientes activos, para que el administrador elija a quién reservarle el turno
+  async listarPacientes(): Promise<UsuarioResponseDto[]> {
+    const pacientes = await this.usuarioRepo.find({
+      where: { rol: RolesUsuarios.PACIENTE, estado: EstadosUsuarios.ACTIVO },
+      order: { apellidos: 'ASC', nombres: 'ASC' },
+    });
+    return pacientes.map(aUsuarioDto);
   }
 }

@@ -17,7 +17,7 @@ export class Usuario {
   @Column({ type: 'text', nullable: false })
   nombres: string;
 
-  @Column({ type: 'text', nullable: false })
+  @Column({ type: 'text', unique: true, nullable: false })
   email: string;
 
   @Column({ type: 'text', nullable: false })
