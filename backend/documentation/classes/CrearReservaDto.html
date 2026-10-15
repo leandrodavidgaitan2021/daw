@@ -173,7 +173,6 @@
                                 <span class="reference-badge reference-badge--property" aria-hidden="true">P</span>
                                     <span class="modifier"></span>
                                     <span class="modifier"></span>
-                                    <span class="modifier"></span>
                                 <a href="#fechaHora" >fechaHora</a>
                             </li>
                             <li>
@@ -188,6 +187,8 @@
                                     <span class="modifier"></span>
                                     <span class="modifier"></span>
                                     <span class="modifier"></span>
+                                    <span class="modifier"></span>
+                                    <span class="modifier">Optional</span>
                                 <a href="#idPaciente" >idPaciente</a>
                             </li>
                         </ul>
@@ -217,7 +218,6 @@
                     <span class="name">
                             <span class="modifier"></span>
                             <span class="modifier"></span>
-                            <span class="modifier"></span>
                         <span ><b>fechaHora</b></span>
                         <a href="#fechaHora"><span class="icon ion-ios-link"></span></a>
                     </span>
@@ -234,13 +234,13 @@
                         <b>Decorators : </b>
                         <br />
                         <code>
-                            @ApiProperty({description: &#x27;Fecha y hora de la reserva (formato ISO)&#x27;})<br />@IsDateString()<br />@IsNotEmpty()<br />
+                            @ApiProperty({example: &#x27;2026-10-28T10:00:00-03:00&#x27;, description: &#x27;Fecha y hora del turno (ISO 8601), de 8:00 a 15:00 en punto, hasta 30 días desde hoy&#x27;})<br />@IsDateString()<br />
                         </code>
                     </td>
                 </tr>
                     <tr>
                         <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="19" class="link-to-prism">src/modules/gestion/dtos/input/crear-reserva.dto.ts:19</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="25" class="link-to-prism">src/modules/gestion/dtos/input/crear-reserva.dto.ts:25</a></div>
                         </td>
                     </tr>
 
@@ -272,7 +272,7 @@
                         <b>Decorators : </b>
                         <br />
                         <code>
-                            @ApiProperty({description: &#x27;ID del médico seleccionado&#x27;})<br />@IsInt()<br />@IsNotEmpty()<br />
+                            @ApiProperty({example: 1, description: &#x27;ID del médico&#x27;})<br />@IsInt()<br />@Min(1)<br />
                         </code>
                     </td>
                 </tr>
@@ -294,6 +294,8 @@
                             <span class="modifier"></span>
                             <span class="modifier"></span>
                             <span class="modifier"></span>
+                            <span class="modifier"></span>
+                            <span class="modifier">Optional</span>
                         <span ><b>idPaciente</b></span>
                         <a href="#idPaciente"><span class="icon ion-ios-link"></span></a>
                     </span>
@@ -310,13 +312,13 @@
                         <b>Decorators : </b>
                         <br />
                         <code>
-                            @ApiProperty({description: &#x27;ID del paciente que reserva (si no se extrae del token)&#x27;})<br />@IsInt()<br />@IsNotEmpty()<br />
+                            @ApiPropertyOptional({example: 3, description: &#x27;ID del paciente. Lo debe indicar solo el administrador; un paciente siempre reserva a su nombre.&#x27;})<br />@IsOptional()<br />@IsInt()<br />@Min(1)<br />
                         </code>
                     </td>
                 </tr>
                     <tr>
                         <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="14" class="link-to-prism">src/modules/gestion/dtos/input/crear-reserva.dto.ts:14</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="18" class="link-to-prism">src/modules/gestion/dtos/input/crear-reserva.dto.ts:18</a></div>
                         </td>
                     </tr>
 
@@ -335,23 +337,29 @@
 
 
     <div class="tab-pane fade  tab-source-code" id="source">
-        <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { IsInt, IsNotEmpty, IsDateString } from &#x27;class-validator&#x27;;
-import { ApiProperty } from &#x27;@nestjs/swagger&#x27;;
+        <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { ApiProperty, ApiPropertyOptional } from &#x27;@nestjs/swagger&#x27;;
+import { IsDateString, IsInt, IsOptional, Min } from &#x27;class-validator&#x27;;
 
 export class CrearReservaDto {
-  @ApiProperty({ description: &#x27;ID del médico seleccionado&#x27; })
+  @ApiProperty({ example: 1, description: &#x27;ID del médico&#x27; })
   @IsInt()
-  @IsNotEmpty()
+  @Min(1)
   idMedico: number;
 
-  @ApiProperty({ description: &#x27;ID del paciente que reserva (si no se extrae del token)&#x27; })
+  @ApiPropertyOptional({
+    example: 3,
+    description: &#x27;ID del paciente. Lo debe indicar solo el administrador; un paciente siempre reserva a su nombre.&#x27;,
+  })
+  @IsOptional()
   @IsInt()
-  @IsNotEmpty()
-  idPaciente: number;
+  @Min(1)
+  idPaciente?: number;
 
-  @ApiProperty({ description: &#x27;Fecha y hora de la reserva (formato ISO)&#x27; })
+  @ApiProperty({
+    example: &#x27;2026-10-28T10:00:00-03:00&#x27;,
+    description: &#x27;Fecha y hora del turno (ISO 8601), de 8:00 a 15:00 en punto, hasta 30 días desde hoy&#x27;,
+  })
   @IsDateString()
-  @IsNotEmpty()
   fechaHora: string;
 }</code></pre>
     </div>

@@ -137,7 +137,22 @@
                 <td class="col-md-4">
                     <ul class="index-list">
                         <li>
+                            <a href="#aMedicoDto" title="src/modules/gestion/mappers/mappers.ts" class="reference-link "><span class="reference-badge reference-badge--variable" aria-hidden="true">V</span><span class="reference-link-label"><b>aMedicoDto</b>&nbsp;&nbsp;&nbsp;(src/.../mappers.ts)</span></a>
+                        </li>
+                        <li>
+                            <a href="#aReservaDto" title="src/modules/gestion/mappers/mappers.ts" class="reference-link "><span class="reference-badge reference-badge--variable" aria-hidden="true">V</span><span class="reference-link-label"><b>aReservaDto</b>&nbsp;&nbsp;&nbsp;(src/.../mappers.ts)</span></a>
+                        </li>
+                        <li>
+                            <a href="#aUsuarioDto" title="src/modules/gestion/mappers/mappers.ts" class="reference-link "><span class="reference-badge reference-badge--variable" aria-hidden="true">V</span><span class="reference-link-label"><b>aUsuarioDto</b>&nbsp;&nbsp;&nbsp;(src/.../mappers.ts)</span></a>
+                        </li>
+                        <li>
+                            <a href="#ESTADOS_PERMITIDOS" title="src/modules/gestion/dtos/input/actualizar-estado-reserva.dto.ts" class="reference-link "><span class="reference-badge reference-badge--variable" aria-hidden="true">V</span><span class="reference-link-label"><b>ESTADOS_PERMITIDOS</b>&nbsp;&nbsp;&nbsp;(src/.../actualizar-estado-reserva.dto.ts)</span></a>
+                        </li>
+                        <li>
                             <a href="#ROL_KEY" title="src/modules/auth/decorators/roles.decorator.ts" class="reference-link "><span class="reference-badge reference-badge--variable" aria-hidden="true">V</span><span class="reference-link-label"><b>ROL_KEY</b>&nbsp;&nbsp;&nbsp;(src/.../roles.decorator.ts)</span></a>
+                        </li>
+                        <li>
+                            <a href="#Roles" title="src/modules/auth/decorators/roles.decorator.ts" class="reference-link "><span class="reference-badge reference-badge--variable" aria-hidden="true">V</span><span class="reference-link-label"><b>Roles</b>&nbsp;&nbsp;&nbsp;(src/.../roles.decorator.ts)</span></a>
                         </li>
                     </ul>
                 </td>
@@ -146,6 +161,139 @@
     </table>
 </section>
 
+    <h3>src/modules/gestion/mappers/mappers.ts</h3>
+    <section data-compodoc="block-properties">
+    <h3></h3>    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="aMedicoDto"></a>
+                    <span class="name">
+                        <span ><b>aMedicoDto</b></span>
+                        <a href="#aMedicoDto"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>unknown</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>(m: Medico): MedicoResponseDto &#x3D;&gt; ({
+  id: m.id,
+  matricula: m.matricula,
+  valorConsulta: m.valorConsulta,
+  nombres: m.usuario.nombres,
+  apellidos: m.usuario.apellidos,
+  email: m.usuario.email,
+  documento: m.usuario.documento,
+})</code>
+                    </td>
+                </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="aReservaDto"></a>
+                    <span class="name">
+                        <span ><b>aReservaDto</b></span>
+                        <a href="#aReservaDto"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>unknown</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>(r: Reserva): ReservaResponseDto &#x3D;&gt; ({
+  id: r.id,
+  fechaHora: r.fechaHora,
+  estado: r.estado,
+  valorConsulta: r.valorConsulta,
+  paciente: aUsuarioDto(r.paciente),
+  medico: aMedicoDto(r.medico),
+})</code>
+                    </td>
+                </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="aUsuarioDto"></a>
+                    <span class="name">
+                        <span ><b>aUsuarioDto</b></span>
+                        <a href="#aUsuarioDto"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>unknown</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>(u: Usuario): UsuarioResponseDto &#x3D;&gt; ({
+  id: u.id,
+  documento: u.documento,
+  apellidos: u.apellidos,
+  nombres: u.nombres,
+  email: u.email,
+  estado: u.estado,
+  rol: u.rol,
+})</code>
+                    </td>
+                </tr>
+
+
+        </tbody>
+    </table>
+</section>
+    <h3>src/modules/gestion/dtos/input/actualizar-estado-reserva.dto.ts</h3>
+    <section data-compodoc="block-properties">
+    <h3></h3>    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="ESTADOS_PERMITIDOS"></a>
+                    <span class="name">
+                        <span ><b>ESTADOS_PERMITIDOS</b></span>
+                        <a href="#ESTADOS_PERMITIDOS"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>[]</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>[EstadosReservas.ATENDIDO, EstadosReservas.AUSENTE]</code>
+                    </td>
+                </tr>
+
+
+        </tbody>
+    </table>
+</section>
     <h3>src/modules/auth/decorators/roles.decorator.ts</h3>
     <section data-compodoc="block-properties">
     <h3></h3>    <table class="table table-sm table-bordered">
@@ -168,6 +316,32 @@
                 <tr>
                     <td class="col-md-4">
                         <i>Default value : </i><code>&#x27;rol&#x27;</code>
+                    </td>
+                </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="Roles"></a>
+                    <span class="name">
+                        <span ><b>Roles</b></span>
+                        <a href="#Roles"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>unknown</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>(...roles: RolesUsuarios[]) &#x3D;&gt; SetMetadata(ROL_KEY, roles)</code>
                     </td>
                 </tr>
 

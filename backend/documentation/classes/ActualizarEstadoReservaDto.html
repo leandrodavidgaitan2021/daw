@@ -125,7 +125,7 @@
 
 <div class="io-file io-file-path" data-compodoc="entity-file-path">
     <span class="icon ion-ios-document" aria-hidden="true"></span>
-    <code>src/modules/gestion/dtos/input/actualizar-estado-reserva.ts</code>
+    <code>src/modules/gestion/dtos/input/actualizar-estado-reserva.dto.ts</code>
 </div>
 
 <ul class="nav nav-tabs" role="tablist">
@@ -173,7 +173,6 @@
                                 <span class="reference-badge reference-badge--property" aria-hidden="true">P</span>
                                     <span class="modifier"></span>
                                     <span class="modifier"></span>
-                                    <span class="modifier"></span>
                                 <a href="#estado" >estado</a>
                             </li>
                         </ul>
@@ -203,7 +202,6 @@
                     <span class="name">
                             <span class="modifier"></span>
                             <span class="modifier"></span>
-                            <span class="modifier"></span>
                         <span ><b>estado</b></span>
                         <a href="#estado"><span class="icon ion-ios-link"></span></a>
                     </span>
@@ -220,13 +218,13 @@
                         <b>Decorators : </b>
                         <br />
                         <code>
-                            @ApiProperty({enum: EstadosReservas, description: &#x27;Nuevo estado del turno&#x27;})<br />@IsEnum(EstadosReservas)<br />@IsNotEmpty()<br />
+                            @ApiProperty({enum: ESTADOS_PERMITIDOS, example: undefined, description: &#x27;Resultado del turno&#x27;})<br />@IsIn(ESTADOS_PERMITIDOS, {message: &#x27;El estado debe ser ATENDIDO o AUSENTE&#x27;})<br />
                         </code>
                     </td>
                 </tr>
                     <tr>
                         <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="10" class="link-to-prism">src/modules/gestion/dtos/input/actualizar-estado-reserva.ts:10</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="11" class="link-to-prism">src/modules/gestion/dtos/input/actualizar-estado-reserva.dto.ts:11</a></div>
                         </td>
                     </tr>
 
@@ -245,14 +243,15 @@
 
 
     <div class="tab-pane fade  tab-source-code" id="source">
-        <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { IsEnum, IsNotEmpty } from &#x27;class-validator&#x27;;
+        <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { IsIn } from &#x27;class-validator&#x27;;
 import { ApiProperty } from &#x27;@nestjs/swagger&#x27;;
 import { EstadosReservas } from &#x27;../../enums/estados-reservas.enum&#x27;;
 
+const ESTADOS_PERMITIDOS &#x3D; [EstadosReservas.ATENDIDO, EstadosReservas.AUSENTE];
+
 export class ActualizarEstadoReservaDto {
-  @ApiProperty({ enum: EstadosReservas, description: &#x27;Nuevo estado del turno&#x27; })
-  @IsEnum(EstadosReservas)
-  @IsNotEmpty()
+  @ApiProperty({ enum: ESTADOS_PERMITIDOS, example: EstadosReservas.ATENDIDO, description: &#x27;Resultado del turno&#x27; })
+  @IsIn(ESTADOS_PERMITIDOS, { message: &#x27;El estado debe ser ATENDIDO o AUSENTE&#x27; })
   estado: EstadosReservas;
 }</code></pre>
     </div>

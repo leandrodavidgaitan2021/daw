@@ -265,23 +265,28 @@
     <div class="tab-pane fade  tab-source-code" id="source">
         <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">// src/app.module.ts
 import { Module } from &#x27;@nestjs/common&#x27;;
-import { ConfigModule } from &#x27;@nestjs/config&#x27;;
+import { ConfigModule, ConfigService } from &#x27;@nestjs/config&#x27;;
 import { TypeOrmModule } from &#x27;@nestjs/typeorm&#x27;;
 import { AuthModule } from &#x27;./modules/auth/auth.module&#x27;;
 import { GestionModule } from &#x27;./modules/gestion/gestion.module&#x27;;
 
 @Module({
   imports: [
-    ConfigModule.forRoot({ isGlobal: true }), // Habilita las variables de entorno globalmente[cite: 1]
-    TypeOrmModule.forRoot({
-      type: &#x27;postgres&#x27;,
-      host: process.env.DB_HOST || &#x27;localhost&#x27;,
-      port: parseInt(process.env.DB_PORT, 10) || 5432,
-      username: process.env.DB_USER,
-      password: process.env.DB_PASSWORD,
-      database: process.env.DB_NAME,
-      autoLoadEntities: true,
-      synchronize: true, // Cambiar a false en producción
+    // Carga el archivo .env y deja las variables disponibles en toda la app
+    ConfigModule.forRoot({ isGlobal: true }),
+    TypeOrmModule.forRootAsync({
+      inject: [ConfigService],
+      useFactory: (config: ConfigService) &#x3D;&gt; ({
+        type: &#x27;postgres&#x27;,
+        host: config.get&lt;string&gt;(&#x27;DB_HOST&#x27;, &#x27;localhost&#x27;),
+        port: config.get&lt;number&gt;(&#x27;DB_PORT&#x27;, 5432),
+        username: config.get&lt;string&gt;(&#x27;DB_USER&#x27;),
+        password: config.get&lt;string&gt;(&#x27;DB_PASSWORD&#x27;),
+        database: config.get&lt;string&gt;(&#x27;DB_NAME&#x27;),
+        autoLoadEntities: true,
+        synchronize: config.get&lt;string&gt;(&#x27;DB_SYNC&#x27;) &#x3D;&#x3D;&#x3D; &#x27;true&#x27;,
+        logging: config.get&lt;string&gt;(&#x27;DB_LOGGING&#x27;) &#x3D;&#x3D;&#x3D; &#x27;true&#x27;,
+      }),
     }),
     AuthModule,
     GestionModule,

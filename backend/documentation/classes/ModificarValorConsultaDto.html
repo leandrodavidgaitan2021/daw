@@ -174,7 +174,6 @@
                                     <span class="modifier"></span>
                                     <span class="modifier"></span>
                                     <span class="modifier"></span>
-                                    <span class="modifier"></span>
                                 <a href="#valorConsulta" >valorConsulta</a>
                             </li>
                         </ul>
@@ -205,7 +204,6 @@
                             <span class="modifier"></span>
                             <span class="modifier"></span>
                             <span class="modifier"></span>
-                            <span class="modifier"></span>
                         <span ><b>valorConsulta</b></span>
                         <a href="#valorConsulta"><span class="icon ion-ios-link"></span></a>
                     </span>
@@ -222,7 +220,7 @@
                         <b>Decorators : </b>
                         <br />
                         <code>
-                            @ApiProperty({description: &#x27;Nuevo valor de la consulta médica&#x27;})<br />@IsInt()<br />@Min(0)<br />@IsNotEmpty()<br />
+                            @ApiProperty({example: 20000, description: &#x27;Nuevo valor de la consulta médica&#x27;})<br />@IsInt()<br />@Min(1)<br />
                         </code>
                     </td>
                 </tr>
@@ -251,10 +249,10 @@
 import { ApiProperty } from &#x27;@nestjs/swagger&#x27;;
 
 export class ModificarValorConsultaDto {
-  @ApiProperty({ description: &#x27;Nuevo valor de la consulta médica&#x27; })
+  
+  @ApiProperty({ example: 20000, description: &#x27;Nuevo valor de la consulta médica&#x27; })
   @IsInt()
-  @Min(0)
-  @IsNotEmpty()
+  @Min(1)
   valorConsulta: number;
 }</code></pre>
     </div>

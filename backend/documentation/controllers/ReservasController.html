@@ -193,11 +193,20 @@
                                 <span class="reference-badge reference-badge--method" aria-hidden="true">M</span>
                                     <span class="modifier"></span>
                                     <span class="modifier"></span>
+                                    <span class="modifier"></span>
+                                    <span class="modifier"></span>
+                                    <span class="modifier"></span>
+                                    <span class="modifier"></span>
+                                    <span class="modifier"></span>
                                     <span class="modifier">Async</span>
                                 <a href="#cancelar" >cancelar</a>
                             </li>
                             <li>
                                 <span class="reference-badge reference-badge--method" aria-hidden="true">M</span>
+                                    <span class="modifier"></span>
+                                    <span class="modifier"></span>
+                                    <span class="modifier"></span>
+                                    <span class="modifier"></span>
                                     <span class="modifier"></span>
                                     <span class="modifier"></span>
                                     <span class="modifier">Async</span>
@@ -207,11 +216,15 @@
                                 <span class="reference-badge reference-badge--method" aria-hidden="true">M</span>
                                     <span class="modifier"></span>
                                     <span class="modifier"></span>
+                                    <span class="modifier"></span>
+                                    <span class="modifier"></span>
                                     <span class="modifier">Async</span>
                                 <a href="#listarMisTurnos" >listarMisTurnos</a>
                             </li>
                             <li>
                                 <span class="reference-badge reference-badge--method" aria-hidden="true">M</span>
+                                    <span class="modifier"></span>
+                                    <span class="modifier"></span>
                                     <span class="modifier"></span>
                                     <span class="modifier"></span>
                                     <span class="modifier">Async</span>
@@ -242,6 +255,11 @@
                     <span class="name">
                             <span class="modifier"></span>
                             <span class="modifier"></span>
+                            <span class="modifier"></span>
+                            <span class="modifier"></span>
+                            <span class="modifier"></span>
+                            <span class="modifier"></span>
+                            <span class="modifier"></span>
                             <span class="modifier">Async</span>
                         <span ><b>cancelar</b></span>
                         <a href="#cancelar"><span class="icon ion-ios-link"></span></a>
@@ -251,7 +269,7 @@
             <tr>
                 <td class="col-md-4">
                         <span class="modifier-icon icon ion-ios-reset"></span>
-                    <code>cancelar(id: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank">number</a>, req: unknown)</code>
+                    <code>cancelar(id: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank">number</a>, req: <a href="../interfaces/UsuarioAutenticado.html" target="_self">{ user: UsuarioAutenticado }</a>)</code>
                 </td>
             </tr>
 
@@ -259,14 +277,14 @@
                 <td class="col-md-4">
                     <b>Decorators : </b>
                     <br />
-                    <code>@Patch(&#x27;:id/cancelar&#x27;)<br />@Roles(RolesUsuarios.PACIENTE, RolesUsuarios.ADMINISTRADOR)<br /></code>
+                    <code>@Patch(&#x27;:id/cancelar&#x27;)<br />@Roles(RolesUsuarios.PACIENTE, RolesUsuarios.ADMINISTRADOR)<br />@ApiOperation({summary: &#x27;Cancelar un turno (paciente hasta el día anterior; administrador hasta el inicio)&#x27;})<br />@ApiOkResponse({type: ReservaResponseDto})<br />@ApiResponse({status: 400, description: &#x27;El turno no está ACTIVO o ya pasó el plazo para cancelar.&#x27;})<br />@ApiResponse({status: 403, description: &#x27;Un paciente no puede cancelar turnos ajenos.&#x27;})<br />@ApiResponse({status: 404, description: &#x27;Reserva no encontrada.&#x27;})<br /></code>
                 </td>
             </tr>
 
                     <tr>
                         <td class="col-md-4">
-                            <div class="io-line">Defined in <a href="" data-line="38"
-                                    class="link-to-prism">src/modules/gestion/controllers/reservas.controller.ts:38</a></div>
+                            <div class="io-line">Defined in <a href="" data-line="59"
+                                    class="link-to-prism">src/modules/gestion/controllers/reservas.controller.ts:59</a></div>
                         </td>
                     </tr>
 
@@ -301,7 +319,7 @@
                                         <tr>
                                                 <td>req</td>
                                             <td>
-                                                        <code>unknown</code>
+                                                            <code><a href="../interfaces/UsuarioAutenticado.html" target="_self" >{ user: UsuarioAutenticado }</a></code>
                                             </td>
 
                                             <td>
@@ -332,6 +350,10 @@
                     <span class="name">
                             <span class="modifier"></span>
                             <span class="modifier"></span>
+                            <span class="modifier"></span>
+                            <span class="modifier"></span>
+                            <span class="modifier"></span>
+                            <span class="modifier"></span>
                             <span class="modifier">Async</span>
                         <span ><b>crear</b></span>
                         <a href="#crear"><span class="icon ion-ios-link"></span></a>
@@ -341,7 +363,7 @@
             <tr>
                 <td class="col-md-4">
                         <span class="modifier-icon icon ion-ios-reset"></span>
-                    <code>crear(dto: <a href="../classes/CrearReservaDto.html" target="_self">CrearReservaDto</a>, req: unknown)</code>
+                    <code>crear(dto: <a href="../classes/CrearReservaDto.html" target="_self">CrearReservaDto</a>, req: <a href="../interfaces/UsuarioAutenticado.html" target="_self">{ user: UsuarioAutenticado }</a>)</code>
                 </td>
             </tr>
 
@@ -349,14 +371,14 @@
                 <td class="col-md-4">
                     <b>Decorators : </b>
                     <br />
-                    <code>@Post()<br />@Roles(RolesUsuarios.PACIENTE, RolesUsuarios.ADMINISTRADOR)<br /></code>
+                    <code>@Post()<br />@Roles(RolesUsuarios.PACIENTE, RolesUsuarios.ADMINISTRADOR)<br />@ApiOperation({summary: &#x27;Reservar un turno (el paciente a su nombre; el administrador indica el paciente)&#x27;})<br />@ApiCreatedResponse({type: ReservaResponseDto})<br />@ApiResponse({status: 400, description: &#x27;Horario fuera de atención, ocupado, fuera de los 30 días o paciente inválido.&#x27;})<br />@ApiResponse({status: 404, description: &#x27;Médico no encontrado.&#x27;})<br /></code>
                 </td>
             </tr>
 
                     <tr>
                         <td class="col-md-4">
-                            <div class="io-line">Defined in <a href="" data-line="20"
-                                    class="link-to-prism">src/modules/gestion/controllers/reservas.controller.ts:20</a></div>
+                            <div class="io-line">Defined in <a href="" data-line="32"
+                                    class="link-to-prism">src/modules/gestion/controllers/reservas.controller.ts:32</a></div>
                         </td>
                     </tr>
 
@@ -391,7 +413,7 @@
                                         <tr>
                                                 <td>req</td>
                                             <td>
-                                                        <code>unknown</code>
+                                                            <code><a href="../interfaces/UsuarioAutenticado.html" target="_self" >{ user: UsuarioAutenticado }</a></code>
                                             </td>
 
                                             <td>
@@ -422,6 +444,8 @@
                     <span class="name">
                             <span class="modifier"></span>
                             <span class="modifier"></span>
+                            <span class="modifier"></span>
+                            <span class="modifier"></span>
                             <span class="modifier">Async</span>
                         <span ><b>listarMisTurnos</b></span>
                         <a href="#listarMisTurnos"><span class="icon ion-ios-link"></span></a>
@@ -431,7 +455,7 @@
             <tr>
                 <td class="col-md-4">
                         <span class="modifier-icon icon ion-ios-reset"></span>
-                    <code>listarMisTurnos(req: unknown)</code>
+                    <code>listarMisTurnos(req: <a href="../interfaces/UsuarioAutenticado.html" target="_self">{ user: UsuarioAutenticado }</a>)</code>
                 </td>
             </tr>
 
@@ -439,14 +463,14 @@
                 <td class="col-md-4">
                     <b>Decorators : </b>
                     <br />
-                    <code>@Get(&#x27;paciente&#x27;)<br />@Roles(RolesUsuarios.PACIENTE)<br /></code>
+                    <code>@Get(&#x27;paciente&#x27;)<br />@Roles(RolesUsuarios.PACIENTE)<br />@ApiOperation({summary: &#x27;Listar los turnos reservados del paciente autenticado&#x27;})<br />@ApiOkResponse({type: undefined})<br /></code>
                 </td>
             </tr>
 
                     <tr>
                         <td class="col-md-4">
-                            <div class="io-line">Defined in <a href="" data-line="26"
-                                    class="link-to-prism">src/modules/gestion/controllers/reservas.controller.ts:26</a></div>
+                            <div class="io-line">Defined in <a href="" data-line="40"
+                                    class="link-to-prism">src/modules/gestion/controllers/reservas.controller.ts:40</a></div>
                         </td>
                     </tr>
 
@@ -469,7 +493,7 @@
                                         <tr>
                                                 <td>req</td>
                                             <td>
-                                                        <code>unknown</code>
+                                                            <code><a href="../interfaces/UsuarioAutenticado.html" target="_self" >{ user: UsuarioAutenticado }</a></code>
                                             </td>
 
                                             <td>
@@ -500,6 +524,8 @@
                     <span class="name">
                             <span class="modifier"></span>
                             <span class="modifier"></span>
+                            <span class="modifier"></span>
+                            <span class="modifier"></span>
                             <span class="modifier">Async</span>
                         <span ><b>listarTodas</b></span>
                         <a href="#listarTodas"><span class="icon ion-ios-link"></span></a>
@@ -517,14 +543,14 @@
                 <td class="col-md-4">
                     <b>Decorators : </b>
                     <br />
-                    <code>@Get()<br />@Roles(RolesUsuarios.ADMINISTRADOR)<br /></code>
+                    <code>@Get()<br />@Roles(RolesUsuarios.ADMINISTRADOR)<br />@ApiOperation({summary: &#x27;Listar todos los turnos reservados&#x27;})<br />@ApiOkResponse({type: undefined})<br /></code>
                 </td>
             </tr>
 
                     <tr>
                         <td class="col-md-4">
-                            <div class="io-line">Defined in <a href="" data-line="32"
-                                    class="link-to-prism">src/modules/gestion/controllers/reservas.controller.ts:32</a></div>
+                            <div class="io-line">Defined in <a href="" data-line="48"
+                                    class="link-to-prism">src/modules/gestion/controllers/reservas.controller.ts:48</a></div>
                         </td>
                     </tr>
 
@@ -546,14 +572,22 @@
 
     <div class="tab-pane fade  tab-source-code" id="source">
         <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">// src/modules/gestion/controllers/reservas.controller.ts
-import { Controller, Get, Post, Patch, Body, Param, UseGuards, Req } from &#x27;@nestjs/common&#x27;;
-import { ReservasService } from &#x27;../services/reservas.service&#x27;;
+import { Controller, Get, Post, Patch, Body, Param, ParseIntPipe, UseGuards, Req } from &#x27;@nestjs/common&#x27;;
+import {
+  ApiTags,
+  ApiBearerAuth,
+  ApiOperation,
+  ApiOkResponse,
+  ApiCreatedResponse,
+  ApiResponse,
+} from &#x27;@nestjs/swagger&#x27;;
+import { ReservasService, UsuarioAutenticado } from &#x27;../services/reservas.service&#x27;;
 import { CrearReservaDto } from &#x27;../dtos/input/crear-reserva.dto&#x27;;
+import { ReservaResponseDto } from &#x27;../dtos/output/reserva-response.dto&#x27;;
 import { JwtAuthGuard } from &#x27;../../auth/guards/jwt-auth.guard&#x27;;
 import { RolesGuard } from &#x27;../../auth/guards/roles.guard&#x27;;
 import { Roles } from &#x27;../../auth/decorators/roles.decorator&#x27;;
 import { RolesUsuarios } from &#x27;../enums/roles-usuarios.enum&#x27;;
-import { ApiTags, ApiBearerAuth } from &#x27;@nestjs/swagger&#x27;;
 
 @ApiTags(&#x27;Reservas&#x27;)
 @ApiBearerAuth()
@@ -564,26 +598,39 @@ export class ReservasController {
 
   @Post()
   @Roles(RolesUsuarios.PACIENTE, RolesUsuarios.ADMINISTRADOR)
-  async crear(@Body() dto: CrearReservaDto, @Req() req) {
+  @ApiOperation({ summary: &#x27;Reservar un turno (el paciente a su nombre; el administrador indica el paciente)&#x27; })
+  @ApiCreatedResponse({ type: ReservaResponseDto })
+  @ApiResponse({ status: 400, description: &#x27;Horario fuera de atención, ocupado, fuera de los 30 días o paciente inválido.&#x27; })
+  @ApiResponse({ status: 404, description: &#x27;Médico no encontrado.&#x27; })
+  async crear(@Body() dto: CrearReservaDto, @Req() req: { user: UsuarioAutenticado }) {
     return this.reservasService.crearReserva(dto, req.user);
   }
 
   @Get(&#x27;paciente&#x27;)
   @Roles(RolesUsuarios.PACIENTE)
-  async listarMisTurnos(@Req() req) {
+  @ApiOperation({ summary: &#x27;Listar los turnos reservados del paciente autenticado&#x27; })
+  @ApiOkResponse({ type: [ReservaResponseDto] })
+  async listarMisTurnos(@Req() req: { user: UsuarioAutenticado }) {
     return this.reservasService.listarTurnosPaciente(req.user.id);
   }
 
   @Get()
   @Roles(RolesUsuarios.ADMINISTRADOR)
+  @ApiOperation({ summary: &#x27;Listar todos los turnos reservados&#x27; })
+  @ApiOkResponse({ type: [ReservaResponseDto] })
   async listarTodas() {
     return this.reservasService.listarTodas();
   }
 
   @Patch(&#x27;:id/cancelar&#x27;)
   @Roles(RolesUsuarios.PACIENTE, RolesUsuarios.ADMINISTRADOR)
-  async cancelar(@Param(&#x27;id&#x27;) id: number, @Req() req) {
-    return this.reservasService.cancelarReserva(Number(id), req.user);
+  @ApiOperation({ summary: &#x27;Cancelar un turno (paciente hasta el día anterior; administrador hasta el inicio)&#x27; })
+  @ApiOkResponse({ type: ReservaResponseDto })
+  @ApiResponse({ status: 400, description: &#x27;El turno no está ACTIVO o ya pasó el plazo para cancelar.&#x27; })
+  @ApiResponse({ status: 403, description: &#x27;Un paciente no puede cancelar turnos ajenos.&#x27; })
+  @ApiResponse({ status: 404, description: &#x27;Reserva no encontrada.&#x27; })
+  async cancelar(@Param(&#x27;id&#x27;, ParseIntPipe) id: number, @Req() req: { user: UsuarioAutenticado }) {
+    return this.reservasService.cancelarReserva(id, req.user);
   }
 }</code></pre>
     </div>
