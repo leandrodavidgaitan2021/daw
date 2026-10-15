@@ -8,7 +8,7 @@ async function bootstrap() {
   const app = await NestFactory.create(AppModule);
 
   // (Opcional) Si usas un prefijo global, tenlo en cuenta
-  // app.setGlobalPrefix('api/v1'); 
+  app.setGlobalPrefix('api'); 
   app.useGlobalPipes(new ValidationPipe({ transform: true }));
   // Configuración de Swagger
   const config = new DocumentBuilder()

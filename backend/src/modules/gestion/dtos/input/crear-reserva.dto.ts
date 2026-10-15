@@ -7,13 +7,13 @@ export class CrearReservaDto {
   @IsNumber()
   idMedico: number;
 
-  @ApiProperty({ example: 1, description: 'ID del paciente' })
+  @ApiProperty({ example: 3, description: 'ID del paciente' })
   @IsNumber()
   @IsOptional() // Permite que la propiedad no sea enviada por el paciente
   idPaciente: number;
 
   @ApiProperty({ 
-    example: '2026-09-15T10:00:00.000Z', 
+    example: '2026-10-15T13:00:00.000Z', 
     description: 'Fecha y hora de la reserva en formato ISO 8601' 
   })
   @IsDateString() // Valida que sea una fecha correcta si usas class-validator

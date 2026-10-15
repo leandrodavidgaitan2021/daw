@@ -6,6 +6,7 @@ import { Medico } from '../entities/medico.entity';
 import { Reserva } from '../entities/reserva.entity';
 import { ActualizarEstadoReservaDto } from '../dtos/input/actualizar-estado-reserva.dto';
 import { ModificarValorConsultaDto } from '../dtos/input/modificar-valor-consulta.dto';
+import { MedicoResponseDto } from '../dtos/output/medico-response.dto';
 
 @Injectable()
 export class MedicosService {
@@ -22,6 +23,14 @@ export class MedicosService {
     return medico;
   }
 
+  //Litas todos los medicos
+  async listarTodos() {
+    return await this.medicoRepo.find({
+      relations: {
+        usuario: true,
+      },
+    });
+  }
 
   // Médicos: pueden ver sus turnos reservados dada una fecha
   async listarTurnosMedico(idUsuarioMedico: number, fecha?: string) {

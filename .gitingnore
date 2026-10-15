@@ -1,0 +1,17 @@
+# Sistema operativo / OS
+
+.DS_Store
+Thumbs.db
+\*.log
+
+# Editores y IDEs
+
+.vscode/
+.idea/
+_.suo
+_.ntvs\*
+_.njsproj
+_.sln
+\*.swp
+
+/frontend/documentation-angular/
