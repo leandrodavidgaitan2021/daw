@@ -5,8 +5,8 @@ export class MedicoResponseDto {
   @ApiProperty({ example: 1, description: 'ID único del registro del médico' })
   id: number;
 
-  @ApiProperty({ example: 'MP-12345', description: 'Matrícula profesional del médico' })
-  matricula: string;
+  @ApiProperty({ example: 12345, description: 'Matrícula profesional del médico' })
+  matricula: number;
 
   @ApiProperty({ example: 15000, description: 'Valor actual de la consulta médica' })
   valorConsulta: number;

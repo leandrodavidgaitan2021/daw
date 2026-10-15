@@ -28,7 +28,7 @@ async function bootstrap() {
   };
 
   // Crea el perfil de médico (matrícula y valor de consulta) si todavía no existe
-  const crearMedico = async (usuario: Usuario, matricula: string, valorConsulta: number) => {
+  const crearMedico = async (usuario: Usuario, matricula: number, valorConsulta: number) => {
     const existente = await medicoRepo.findOne({ where: { idUsuario: usuario.id } });
     if (existente) return;
 
@@ -55,7 +55,7 @@ async function bootstrap() {
     rol: RolesUsuarios.MEDICO,
     estado: EstadosUsuarios.ACTIVO,
   });
-  await crearMedico(medico1, 'MP-98765', 15000);
+  await crearMedico(medico1, 98765, 15000);
 
   const medico2 = await crearUsuario({
     documento: '66666666',
@@ -65,7 +65,7 @@ async function bootstrap() {
     rol: RolesUsuarios.MEDICO,
     estado: EstadosUsuarios.ACTIVO,
   });
-  await crearMedico(medico2, 'MP-54321', 18000);
+  await crearMedico(medico2, 54321, 18000);
 
   // Pacientes
   await crearUsuario({
