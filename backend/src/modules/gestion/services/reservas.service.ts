@@ -46,7 +46,24 @@ export class ReservasService {
     const medico = await this.medicoRepo.findOne({ where: { id: dto.idMedico } });
     if (!medico) throw new NotFoundException('Médico no encontrado.');
 
-    const idPacienteFinal = usuarioLogueado.rol === RolesUsuarios.PACIENTE ? usuarioLogueado.id : dto.idPaciente;
+    // Determinación y validación segura del ID del paciente según el rol
+    let idPacienteFinal: number;
+
+    if (usuarioLogueado.rol === RolesUsuarios.PACIENTE) {
+      idPacienteFinal = usuarioLogueado.id;
+    } else if (usuarioLogueado.rol === RolesUsuarios.ADMINISTRADOR) {
+      if (!dto.idPaciente) {
+        throw new BadRequestException('El administrador debe especificar el ID del paciente para la reserva.');
+      }
+      idPacienteFinal = dto.idPaciente;
+    } else {
+      throw new ForbiddenException('No autorizado para crear reservas.');
+    }
+
+    // Regla: Un médico no puede realizar una reserva de turno consigo mismo
+    if (medico.idUsuario === idPacienteFinal) {
+      throw new BadRequestException('Un médico no puede realizar una reserva de turno consigo mismo.');
+    }
 
     // Regla: Se congela el valor de la consulta al momento en que se realizó la reserva[cite: 1]
     const nuevaReserva = this.reservaRepo.create({
@@ -67,7 +84,7 @@ export class ReservasService {
         medico: {
             usuario: true,
         },
-        },
+      },
     });
   }
 
@@ -75,7 +92,7 @@ export class ReservasService {
     return await this.reservaRepo.find({ 
         relations: {
             medico: {
-            usuario: true,
+                usuario: true,
             },
             paciente: true,
         } 
