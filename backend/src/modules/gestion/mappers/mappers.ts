@@ -24,8 +24,11 @@ export const aMedicoDto = (m: Medico): MedicoResponseDto => ({
   valorConsulta: m.valorConsulta,
   nombres: m.usuario.nombres,
   apellidos: m.usuario.apellidos,
-  email: m.usuario.email,
-  documento: m.usuario.documento,
+
+  //Como la lista es pública, no tiene por qué mostrar esos datos
+
+  /*email: m.usuario.email,
+  documento: m.usuario.documento,*/
 });
 
 // Arma la ficha del turno con el paciente y el médico adentro

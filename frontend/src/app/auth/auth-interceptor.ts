@@ -8,31 +8,21 @@ export const authInterceptor: HttpInterceptorFn = (req, next) => {
   const authStore = inject(AuthStore);
   const router = inject(Router);
 
-  // Opcional: Si el AuthStore tiene un token guardado, lo inyectamos automáticamente en los headers
+  // Si hay sesión iniciada, agrega el token a cada pedido
   const token = authStore.token();
-  let clonedReq = req;
-  
-  if (token) {
-    clonedReq = req.clone({
-      setHeaders: {
-        Authorization: `Bearer ${token}`
-      }
-    });
-  }
+  const pedido = token
+    ? req.clone({ setHeaders: { Authorization: `Bearer ${token}` } })
+    : req;
 
-  return next(clonedReq).pipe(
+  return next(pedido).pipe(
     catchError((error: HttpErrorResponse) => {
-      // Si el backend responde con 401 Unauthorized (token expirado, inválido o ausente)
-      if (error.status === 401) {
-        console.warn('Sesión caducada o token inválido. Redirigiendo...');
-        
-        // Limpiamos la sesión del Store
-        authStore.logout(); 
-        
-        // Redirigimos al usuario al inicio o al login
+      // Un 401 fuera del login significa que el token venció o no es válido
+      const esLogin = req.url.includes('/auth/login');
+      if (error.status === 401 && !esLogin) {
+        authStore.logout();
         router.navigate(['/login']);
       }
       return throwError(() => error);
-    })
+    }),
   );
 };

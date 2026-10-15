@@ -15,11 +15,27 @@
           <a routerLink="/admin/medicos" class="p-button p-button-text p-button-plain text-white font-medium">Médicos</a>
         }
 
-        <!-- Opciones para PACIENTE -->
+         <!-- Opciones para PACIENTE -->
+
         @if (authStore.usuario()?.rol === 'PACIENTE') {
-          <a routerLink="/paciente/mis-turnos" class="p-button p-button-text p-button-plain text-white font-medium">Mis turnos</a>
-          <a routerLink="/medicos" class="p-button p-button-text p-button-plain text-white font-medium">Médicos</a>
-        }
+          <a
+          routerLink="/paciente/mis-turnos"
+          class="p-button p-button-text p-button-plain text-white font-medium">
+          Mis turnos
+          </a>
+
+          <a
+          routerLink="/paciente/reservar"
+          class="p-button p-button-text p-button-plain text-white font-medium">
+          Reservar turno
+          </a>
+
+          <a
+          routerLink="/medicos"
+          class="p-button p-button-text p-button-plain text-white font-medium">
+          Médicos
+          </a>
+      }
 
         <!-- Opciones para MÉDICO (por si accede) -->
         @if (authStore.usuario()?.rol === 'MEDICO') {

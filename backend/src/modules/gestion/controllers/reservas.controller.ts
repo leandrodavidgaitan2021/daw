@@ -1,5 +1,5 @@
 // src/modules/gestion/controllers/reservas.controller.ts
-import { Controller, Get, Post, Patch, Body, Param, ParseIntPipe, UseGuards, Req } from '@nestjs/common';
+import { Controller, Get, Post, Patch, Body, Param, ParseIntPipe, UseGuards, Req, Query } from '@nestjs/common';
 import {
   ApiTags,
   ApiBearerAuth,
@@ -7,6 +7,8 @@ import {
   ApiOkResponse,
   ApiCreatedResponse,
   ApiResponse,
+  ApiQuery,
+
 } from '@nestjs/swagger';
 import { ReservasService, UsuarioAutenticado } from '../services/reservas.service';
 import { CrearReservaDto } from '../dtos/input/crear-reserva.dto';
@@ -32,6 +34,10 @@ export class ReservasController {
   async crear(@Body() dto: CrearReservaDto, @Req() req: { user: UsuarioAutenticado }) {
     return this.reservasService.crearReserva(dto, req.user);
   }
+  
+  
+
+
 
   @Get('paciente')
   @Roles(RolesUsuarios.PACIENTE)
@@ -40,6 +46,38 @@ export class ReservasController {
   async listarMisTurnos(@Req() req: { user: UsuarioAutenticado }) {
     return this.reservasService.listarTurnosPaciente(req.user.id);
   }
+
+
+
+  @Get('disponibilidad')
+  @Roles(RolesUsuarios.PACIENTE, RolesUsuarios.ADMINISTRADOR)
+  @ApiOperation({
+    summary: 'Consultar horarios ocupados de un médico para una fecha',
+  })
+  @ApiQuery({ name: 'idMedico', type: Number, required: true })
+  @ApiQuery({
+    name: 'fecha',
+    type: String,
+    required: true,
+    example: '2026-10-20',
+  })
+  @ApiOkResponse({
+    description: 'Lista de horarios ocupados en formato HH:mm',
+    schema: {
+      example: ['09:00', '11:00', '14:00'],
+    },
+  })
+  async consultarDisponibilidad(
+    @Query('idMedico', ParseIntPipe) idMedico: number,
+    @Query('fecha') fecha: string,
+  ): Promise<string[]> {
+    return this.reservasService.listarHorariosOcupados(
+      idMedico,
+      fecha,
+    );
+  }
+
+
 
   @Get()
   @Roles(RolesUsuarios.ADMINISTRADOR)

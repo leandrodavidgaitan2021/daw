@@ -1,1 +1,10 @@
-/* You can add global styles to this file, and also import other style files */
+@import "primeflex/primeflex.css";
+
+body {
+  margin: 0;
+  font-family: system-ui, -apple-system, 'Segoe UI', Roboto, Arial, sans-serif;
+}
+
+a {
+  text-decoration: none;
+}

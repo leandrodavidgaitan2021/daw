@@ -1,7 +1,7 @@
 // src/modules/gestion/services/reservas.service.ts
 import { Injectable, BadRequestException, NotFoundException, ForbiddenException } from '@nestjs/common';
-import { InjectRepository } from '@nestjs/typeorm';
-import { Repository } from 'typeorm';
+import { InjectRepository} from '@nestjs/typeorm';
+import { Repository, Between  } from 'typeorm';
 import { Reserva } from '../entities/reserva.entity';
 import { Medico } from '../entities/medico.entity';
 import { Usuario } from '../entities/usuario.entity';
@@ -107,6 +107,73 @@ export class ReservasService {
     const reservas = await this.reservaRepo.find({ order: { fechaHora: 'ASC' } });
     return reservas.map(aReservaDto);
   }
+
+  
+  async listarHorariosOcupados(
+    idMedico: number,
+    fecha: string,
+  ): Promise<string[]> {
+    // Validar el formato de la fecha.
+    if (!/^\d{4}-\d{2}-\d{2}$/.test(fecha)) {
+      throw new BadRequestException(
+        'La fecha debe tener el formato YYYY-MM-DD.',
+      );
+    }
+
+    const [anio, mes, dia] = fecha.split('-').map(Number);
+    const inicio = new Date(anio, mes - 1, dia);
+
+    // Verificar que la fecha exista realmente.
+    if (
+      inicio.getFullYear() !== anio ||
+      inicio.getMonth() !== mes - 1 ||
+      inicio.getDate() !== dia
+    ) {
+      throw new BadRequestException('La fecha no es válida.');
+    }
+
+    const fin = new Date(anio, mes - 1, dia + 1);
+
+    // Comprobar que el médico exista.
+    const medico = await this.medicoRepo.findOne({
+      where: { id: idMedico },
+    });
+
+    if (!medico) {
+      throw new NotFoundException('Médico no encontrado.');
+    }
+
+    // Buscar únicamente las reservas activas de ese médico y ese día.
+    const reservas = await this.reservaRepo.find({
+      where: {
+        idMedico,
+        estado: EstadosReservas.ACTIVO,
+        fechaHora: Between(
+          inicio,
+          new Date(fin.getTime() - 1),
+        ),
+      },
+      select: {
+        fechaHora: true,
+      },
+    });
+
+    // Convertir las fechas a horarios HH:mm.
+    return reservas.map((reserva) => {
+      const hora = reserva.fechaHora
+        .getHours()
+        .toString()
+        .padStart(2, '0');
+
+      const minutos = reserva.fechaHora
+        .getMinutes()
+        .toString()
+        .padStart(2, '0');
+
+      return `${hora}:${minutos}`;
+    });
+  }
+
 
   async cancelarReserva(idReserva: number, usuarioLogueado: UsuarioAutenticado): Promise<ReservaResponseDto> {
     const reserva = await this.reservaRepo.findOne({ where: { id: idReserva } });

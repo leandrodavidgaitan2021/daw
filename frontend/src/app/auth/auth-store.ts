@@ -1,5 +1,6 @@
 import { Injectable, computed, signal } from '@angular/core';
 
+export type Rol = 'MEDICO' | 'PACIENTE' | 'ADMINISTRADOR';
 export interface Usuario {
   id: number | string;
   nombres?: string;
@@ -23,7 +24,8 @@ export class AuthStore {
   
   // Señal computada para saber si el usuario está autenticado
   readonly isAuthenticated = computed(() => !!this._token());
-
+  // Rol del usuario con sesión iniciada (o null si no hay sesión)
+  readonly rol = computed(() => (this._user()?.rol as Rol | undefined) ?? null);
   /**
    * Establece la sesión del usuario guardando el token y sus datos
    */

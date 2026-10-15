@@ -25,7 +25,7 @@ export interface LoginResponse {
 })
 export class LoginApiClient {
   private http = inject(HttpClient);
-  // Ajusta la ruta base según el endpoint de login de tu NestJS (ej. '/api/auth/login')
+  
   private readonly apiUrl = '/api/auth/login';
 
   /**

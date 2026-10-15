@@ -17,9 +17,10 @@ export class MedicoResponseDto {
   @ApiProperty({ example: 'Gómez', description: 'Apellido(s) del médico' })
   apellidos: string;
 
-  @ApiProperty({ example: 'carlos.gomez@clinica.com', description: 'Correo electrónico' })
+  //Como la lista es pública, no tiene por qué mostrar esos datos.
+  /*@ApiProperty({ example: 'carlos.gomez@clinica.com', description: 'Correo electrónico' })
   email: string;
 
   @ApiProperty({ example: '35123456', description: 'Documento de identidad' })
-  documento: string;
+  documento: string;*/
 }
