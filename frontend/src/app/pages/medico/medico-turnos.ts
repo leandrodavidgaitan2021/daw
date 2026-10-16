@@ -9,7 +9,7 @@ import { MedicoTurnosApiClient, TurnoMedico } from './medico-turnos-api-client';
 // PrimeNG Modules
 import { TableModule } from 'primeng/table';
 import { ButtonModule } from 'primeng/button';
-import { DatePickerModule } from 'primeng/datepicker'; // <-- Actualizado a DatePicker
+import { DatePickerModule } from 'primeng/datepicker';
 import { MessageService } from 'primeng/api';
 import { TagModule } from 'primeng/tag';
 
@@ -21,7 +21,7 @@ import { TagModule } from 'primeng/tag';
     FormsModule,
     TableModule,
     ButtonModule,
-    DatePickerModule, // <-- Reemplazado aquí
+    DatePickerModule,
     TagModule
   ],
   templateUrl: './medico-turnos.html',
@@ -34,7 +34,6 @@ export class MedicoTurnosComponent implements OnInit {
   readonly turnos = signal<TurnoMedico[]>([]);
   readonly isLoading = signal(false);
   
-  // Guardamos un objeto Date de JavaScript para que el DatePicker de PrimeNG trabaje de forma nativa
   selectedDate: Date = new Date();
 
   ngOnInit(): void {
@@ -44,7 +43,6 @@ export class MedicoTurnosComponent implements OnInit {
   cargarTurnos(): void {
     if (!this.selectedDate) return;
 
-    // Convertimos correctamente respetando la hora local
     const fechaFormateada = this.formatDateToYYYYMMDD(this.selectedDate);
 
     this.isLoading.set(true);
@@ -66,6 +64,16 @@ export class MedicoTurnosComponent implements OnInit {
   }
 
   cambiarEstado(turnoId: number, nuevoEstado: 'ATENDIDO' | 'AUSENTE'): void {
+    // Validación adicional de seguridad por si intentan forzarlo
+    if (!this.esHoy()) {
+      this.messageService.add({
+        severity: 'warn',
+        summary: 'Acción no permitida',
+        detail: 'Solo se pueden modificar turnos correspondientes al día de hoy.'
+      });
+      return;
+    }
+
     this.medicoTurnosApiClient.actualizarEstadoTurno(turnoId, nuevoEstado).subscribe({
       next: () => {
         this.messageService.add({
@@ -85,6 +93,20 @@ export class MedicoTurnosComponent implements OnInit {
     });
   }
 
+  // NUEVO: Método para verificar si la fecha seleccionada es hoy
+  esHoy(): boolean {
+    if (!this.selectedDate) return false;
+    
+    const hoy = new Date();
+    const fechaSeleccionada = new Date(this.selectedDate);
+
+    return (
+      fechaSeleccionada.getDate() === hoy.getDate() &&
+      fechaSeleccionada.getMonth() === hoy.getMonth() &&
+      fechaSeleccionada.getFullYear() === hoy.getFullYear()
+    );
+  }
+
   getSeverity(estado: string): 'success' | 'info' | 'warn' | 'danger' | 'secondary' {
     switch (estado) {
       case 'ACTIVO': return 'info';
@@ -95,14 +117,10 @@ export class MedicoTurnosComponent implements OnInit {
     }
   }
 
- private formatDateToYYYYMMDD(date: Date | string): string {
+  private formatDateToYYYYMMDD(date: Date | string): string {
     if (!date) return '';
     
-    // Asegurarnos de que sea un objeto Date válido
     const d = new Date(date);
-    
-    // Usamos métodos LOCALES (.getFullYear, .getMonth, .getDate) 
-    // para evitar que la zona horaria (UTC) nos cambie el día
     const year = d.getFullYear();
     const month = String(d.getMonth() + 1).padStart(2, '0');
     const day = String(d.getDate()).padStart(2, '0');
