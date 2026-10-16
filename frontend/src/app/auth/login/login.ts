@@ -50,7 +50,7 @@ export class LoginComponent {
   };
 
   readonly loginForm = this.fb.group({
-    correo: ['', [Validators.required, Validators.email]],
+    email: ['', [Validators.required, Validators.email]],
     clave: ['', [Validators.required]],
   });
 

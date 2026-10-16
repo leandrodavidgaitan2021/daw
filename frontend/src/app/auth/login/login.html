@@ -18,17 +18,17 @@
       
       <!-- Campo Correo Electrónico -->
       <div class="flex flex-column gap-2 w-full">
-        <label for="correo" class="font-bold text-900 text-sm">Correo Electrónico</label>
+        <label for="email" class="font-bold text-900 text-sm">Correo Electrónico</label>
         <input 
           pInputText 
-          id="correo" 
+          id="email" 
           type="email" 
-          formControlName="correo" 
-          placeholder="tucorreo@ejemplo.com" 
+          formControlName="email" 
+          placeholder="tuemail@ejemplo.com" 
           class="w-full"
         />
-        @if (loginForm.controls.correo.invalid && submitted()) {
-          <small class="text-red-500 font-medium">Ingresa un correo electrónico válido.</small>
+        @if (loginForm.controls.email.invalid && submitted()) {
+          <small class="text-red-500 font-medium">Ingresa un email electrónico válido.</small>
         }
       </div>
 
