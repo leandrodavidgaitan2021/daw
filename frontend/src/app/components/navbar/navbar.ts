@@ -1,48 +1,55 @@
 import { Component, inject, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { Router, RouterLink } from '@angular/router';
-import { ToolbarModule } from 'primeng/toolbar';
+import { RouterLink } from '@angular/router';
 import { ButtonModule } from 'primeng/button';
-import { DialogModule } from 'primeng/dialog';
-import { TagModule } from 'primeng/tag';
+import { ToolbarModule } from 'primeng/toolbar';
 import { AuthStore } from '../../auth/auth-store';
-import { UsuarioPerfilApiClient, PerfilUsuarioResponse } from './usuario-perfil-api-client';
+import { PerfilModalComponent } from '../../components/perfil-modal/perfil-modal';
+import { UsuarioPerfilApiClient, PerfilUsuarioResponse } from '../../shared/usuario-perfil-api-client';
 
 @Component({
   selector: 'app-navbar',
   standalone: true,
-  imports: [CommonModule, RouterLink, ToolbarModule, ButtonModule, DialogModule, TagModule],
-  templateUrl: './navbar.html'
+  imports: [CommonModule, RouterLink, ButtonModule, ToolbarModule, PerfilModalComponent],
+  templateUrl: './navbar.html',
+  styles: [`
+    .nav-link-hover {
+      transition: color 0.2s ease-in-out, background-color 0.2s ease-in-out;
+    }
+    .nav-link-hover:hover {
+      color: #000000 !important;
+      background-color: rgba(255, 255, 255, 0.85) !important;
+      border-radius: 4px;
+    }
+  `]
 })
 export class NavbarComponent {
   readonly authStore = inject(AuthStore);
-  private perfilApiClient = inject(UsuarioPerfilApiClient);
-  private router = inject(Router);
+  private perfilApi = inject(UsuarioPerfilApiClient);
 
-  // Estados para el Modal de Perfil
   readonly visiblePerfil = signal(false);
-  readonly perfilData = signal<PerfilUsuarioResponse | null>(null);
   readonly isLoadingPerfil = signal(false);
+  readonly perfilData = signal<PerfilUsuarioResponse | null>(null);
 
-  // Método para abrir el modal y consultar el perfil al backend
   abrirPerfil(): void {
     this.visiblePerfil.set(true);
-    this.isLoadingPerfil.set(true);
+    
+    // Si ya tenemos los datos cargados, no volvemos a hacer la petición para evitar parpadeos
+    if (this.perfilData()) return;
 
-    this.perfilApiClient.getPerfil().subscribe({
+    this.isLoadingPerfil.set(true);
+    this.perfilApi.getPerfil().subscribe({
       next: (data) => {
         this.perfilData.set(data);
         this.isLoadingPerfil.set(false);
       },
-      error: (err) => {
-        console.error('Error al cargar el perfil', err);
+      error: () => {
         this.isLoadingPerfil.set(false);
-      }
+      },
     });
   }
 
   onLogout(): void {
     this.authStore.logout();
-    this.router.navigate(['/']);
   }
 }
