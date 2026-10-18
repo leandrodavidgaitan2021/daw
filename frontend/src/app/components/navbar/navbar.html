@@ -11,21 +11,21 @@
       <div class="flex align-items-center gap-2 m-0">
         <!-- Opciones para ADMINISTRADOR -->
         @if (authStore.usuario()?.rol === 'ADMINISTRADOR') {
-          <a routerLink="/admin/turnos" class="p-button p-button-text p-button-plain text-white font-medium">Gestión de Turnos</a>
-          <a routerLink="/admin/reservar" class="p-button p-button-text p-button-plain text-white font-medium">Asignar Turno</a>
-          <a routerLink="/medicos" class="p-button p-button-text p-button-plain text-white font-medium">Médicos</a>
+          <a routerLink="/admin/turnos" class="p-button p-button-text p-button-plain text-white font-medium nav-link-hover px-3 py-2">Gestión de Turnos</a>
+          <a routerLink="/admin/reservar" class="p-button p-button-text p-button-plain text-white font-medium nav-link-hover px-3 py-2">Asignar Turno</a>
+          <a routerLink="/medicos" class="p-button p-button-text p-button-plain text-white font-medium nav-link-hover px-3 py-2">Médicos</a>
         }
 
         <!-- Opciones para PACIENTE -->
         @if (authStore.usuario()?.rol === 'PACIENTE') {
-          <a routerLink="/paciente/mis-turnos" class="p-button p-button-text p-button-plain text-white font-medium">Mis turnos</a>
-          <a routerLink="/paciente/reservar" class="p-button p-button-text p-button-plain text-white font-medium">Reservar turno</a>
-          <a routerLink="/medicos" class="p-button p-button-text p-button-plain text-white font-medium">Médicos</a>
+          <a routerLink="/paciente/mis-turnos" class="p-button p-button-text p-button-plain text-white font-medium nav-link-hover px-3 py-2">Mis turnos</a>
+          <a routerLink="/paciente/reservar" class="p-button p-button-text p-button-plain text-white font-medium nav-link-hover px-3 py-2">Reservar turno</a>
+          <a routerLink="/medicos" class="p-button p-button-text p-button-plain text-white font-medium nav-link-hover px-3 py-2">Médicos</a>
         }
 
         <!-- Opciones para MÉDICO -->
         @if (authStore.usuario()?.rol === 'MEDICO') {
-          <a routerLink="/medico/turnos" class="p-button p-button-text p-button-plain text-white font-medium">Mis Turnos Asignados</a>
+          <a routerLink="/medico/turnos" class="p-button p-button-text p-button-plain text-white font-medium nav-link-hover px-3 py-2">Mis Turnos Asignados</a>
         }
       </div>
     }
@@ -43,7 +43,7 @@
   <!-- Sección Derecha: Acciones de Usuario -->
   <div class="p-toolbar-group-end align-items-center">
     @if (authStore.isAuthenticated()) {
-      <!-- Botón de Perfil con margen derecho explícito -->
+      <!-- Botón de Perfil -->
       <p-button 
         label="Mi Perfil" 
         icon="pi pi-user" 
@@ -72,53 +72,10 @@
   </div>
 </p-toolbar>
 
-<!-- Ventana Emergente (Modal) para el Perfil -->
-<p-dialog 
-  header="Mi Perfil de Usuario" 
-  [(visible)]="visiblePerfil" 
-  [modal]="true" 
-  [style]="{ width: '450px' }" 
-  [draggable]="false" 
-  [resizable]="false"
-  styleClass="p-fluid">
-  
-  <div class="p-2">
-    @if (isLoadingPerfil()) {
-      <div class="text-center p-5">
-        <i class="pi pi-spin pi-spinner text-3xl text-primary"></i>
-        <p class="mt-2 text-600">Cargando perfil...</p>
-      </div>
-    } @else if (perfilData()) {
-      <div class="flex flex-column gap-3">
-        <div class="flex justify-content-between align-items-center border-bottom-1 surface-border pb-3">
-          <span class="font-bold text-700">Nombre Completo:</span>
-          <span class="text-900 font-medium">{{ perfilData()?.nombres }} {{ perfilData()?.apellidos }}</span>
-        </div>
-
-        <div class="flex justify-content-between align-items-center border-bottom-1 surface-border pb-3">
-          <span class="font-bold text-700">Correo Electrónico:</span>
-          <span class="text-900">{{ perfilData()?.email || 'No especificado' }}</span>
-        </div>
-
-        <div class="flex justify-content-between align-items-center border-bottom-1 surface-border pb-3">
-          <span class="font-bold text-700">Documento:</span>
-          <span class="text-900">{{ perfilData()?.documento || 'No especificado' }}</span>
-        </div>
-
-        <div class="flex justify-content-between align-items-center pb-2">
-          <span class="font-bold text-700">Rol en el Sistema:</span>
-          <p-tag [value]="perfilData()?.rol" severity="info" />
-        </div>
-      </div>
-    }
-  </div>
-
-  <ng-template pTemplate="footer">
-    <p-button 
-      label="Cerrar" 
-      icon="pi pi-times" 
-      severity="secondary" 
-      (onClick)="visiblePerfil.set(false)"
-    ></p-button>
-  </ng-template>
-</p-dialog>
+<!-- Componente Independiente del Modal de Perfil -->
+<app-perfil-modal 
+  [visible]="visiblePerfil()" 
+  (visibleChange)="visiblePerfil.set($event)" 
+  [perfil]="perfilData()"
+  [isLoading]="isLoadingPerfil()"
+/>

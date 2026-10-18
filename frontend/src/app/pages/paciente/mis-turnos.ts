@@ -1,30 +1,55 @@
-import { Component, inject, OnInit, signal } from '@angular/core';
+import { Component, inject, OnInit, signal, computed } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { HttpErrorResponse } from '@angular/common/http';
 import { Router } from '@angular/router';
-import { ConfirmationService, MessageService } from 'primeng/api';
+import { MessageService } from 'primeng/api';
 import { ButtonModule } from 'primeng/button';
-import { ConfirmDialogModule } from 'primeng/confirmdialog';
 import { TableModule } from 'primeng/table';
 import { TagModule } from 'primeng/tag';
+import { TabsModule } from 'primeng/tabs';
+import Swal from 'sweetalert2'; // <--- Importar SweetAlert2
 import { Reserva, ReservasApiClient } from '../../shared/reservas-api-client';
 import { mensajeDeError } from '../../shared/mensaje-error';
 
 @Component({
   selector: 'app-mis-turnos',
   standalone: true,
-  imports: [CommonModule, TableModule, ButtonModule, TagModule, ConfirmDialogModule],
-  providers: [ConfirmationService],
+  imports: [
+    CommonModule, 
+    TableModule, 
+    ButtonModule, 
+    TagModule, 
+    TabsModule
+  ],
   templateUrl: './mis-turnos.html',
 })
 export class MisTurnosComponent implements OnInit {
   private reservasApi = inject(ReservasApiClient);
   private messageService = inject(MessageService);
-  private confirmationService = inject(ConfirmationService);
   private router = inject(Router);
 
   readonly turnos = signal<Reserva[]>([]);
   readonly isLoading = signal(true);
+
+  // Solapa 1: Próximos turnos (activos y cuya fecha sea futura o del día de hoy)
+  readonly proximosTurnos = computed(() => {
+    const ahora = new Date();
+    ahora.setHours(0, 0, 0, 0);
+    return this.turnos().filter(t => {
+      const fechaTurno = new Date(t.fechaHora);
+      return t.estado === 'ACTIVO' && fechaTurno >= ahora;
+    });
+  });
+
+  // Solapa 2: Historial (turnos pasados, atendidos, ausentes o cancelados)
+  readonly historialTurnos = computed(() => {
+    const ahora = new Date();
+    ahora.setHours(0, 0, 0, 0);
+    return this.turnos().filter(t => {
+      const fechaTurno = new Date(t.fechaHora);
+      return t.estado !== 'ACTIVO' || fechaTurno < ahora;
+    });
+  });
 
   ngOnInit(): void {
     this.cargarTurnos();
@@ -57,31 +82,43 @@ export class MisTurnosComponent implements OnInit {
   }
 
   confirmarCancelacion(turno: Reserva): void {
-    this.confirmationService.confirm({
-      header: 'Cancelar turno',
-      message: `¿Deseas cancelar el turno con ${turno.medico.nombres} ${turno.medico.apellidos}?`,
-      icon: 'pi pi-exclamation-triangle',
-      acceptLabel: 'Sí, cancelar',
-      rejectLabel: 'No',
-      accept: () => this.cancelar(turno.id),
+    const fechaFormateada = new Date(turno.fechaHora).toLocaleDateString();
+    
+    Swal.fire({
+      title: '¿Cancelar turno?',
+      text: `¿Deseas cancelar el turno con Dr/a. ${turno.medico.apellidos}, ${turno.medico.nombres} para el día ${fechaFormateada}?`,
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonText: 'Sí, cancelar',
+      cancelButtonText: 'No',
+      confirmButtonColor: '#ef4444',
+      cancelButtonColor: '#6b7280',
+    }).then((result) => {
+      if (result.isConfirmed) {
+        this.cancelar(turno.id);
+      }
     });
   }
 
   private cancelar(id: number): void {
     this.reservasApi.cancelar(id).subscribe({
       next: () => {
-        this.messageService.add({
-          severity: 'success',
-          summary: 'Turno cancelado',
-          detail: 'El turno fue cancelado correctamente.',
+        Swal.fire({
+          icon: 'success',
+          title: 'Turno cancelado',
+          text: 'El turno fue cancelado correctamente.',
+          confirmButtonColor: '#10b981',
+          timer: 2500,
+          timerProgressBar: true,
         });
         this.cargarTurnos();
       },
       error: (err: HttpErrorResponse) => {
-        this.messageService.add({
-          severity: 'error',
-          summary: 'No se pudo cancelar el turno',
-          detail: mensajeDeError(err),
+        Swal.fire({
+          icon: 'error',
+          title: 'No se pudo cancelar el turno',
+          text: mensajeDeError(err),
+          confirmButtonColor: '#ef4444',
         });
       },
     });
