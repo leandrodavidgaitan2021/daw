@@ -11,7 +11,8 @@
       <div class="flex align-items-center gap-2 m-0">
         <!-- Opciones para ADMINISTRADOR -->
         @if (authStore.usuario()?.rol === 'ADMINISTRADOR') {
-          <a routerLink="/admin/turnos" class="p-button p-button-text p-button-plain text-white font-medium">Turnos</a>
+          <a routerLink="/admin/turnos" class="p-button p-button-text p-button-plain text-white font-medium">Gestión de Turnos</a>
+          <a routerLink="/admin/reservar" class="p-button p-button-text p-button-plain text-white font-medium">Asignar Turno</a>
           <a routerLink="/medicos" class="p-button p-button-text p-button-plain text-white font-medium">Médicos</a>
         }
 

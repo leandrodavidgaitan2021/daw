@@ -4,7 +4,7 @@ import { mensajeDeError } from '../../shared/mensaje-error';
 import { Component, inject, OnInit, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { MedicoTurnosApiClient, TurnoMedico } from './medico-turnos-api-client';
+import { MedicoTurnosApiClient, TurnoMedico } from '../../shared/medico-turnos-api-client';
 
 // PrimeNG Modules
 import { TableModule } from 'primeng/table';

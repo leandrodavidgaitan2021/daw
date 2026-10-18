@@ -28,5 +28,12 @@ export const routes: Routes = [
     canActivate: [rolGuard(['PACIENTE'])],
   },
 
+  // NUEVA RUTA PARA ADMINISTRADOR (Reutiliza el mismo componente de reserva)
+  {
+    path: 'admin/reservar',
+    component: ReservarTurnoComponent,
+    canActivate: [rolGuard(['ADMINISTRADOR'])],
+  },
+
   { path: '**', redirectTo: '' },
 ];
