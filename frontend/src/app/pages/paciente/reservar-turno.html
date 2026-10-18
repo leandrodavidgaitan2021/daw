@@ -1,11 +1,62 @@
 <div class="p-4 mx-auto" style="max-width: 48rem">
   <div class="mb-5">
-    <h1 class="text-3xl font-bold text-900 m-0">Reservar turno</h1>
-    <p class="text-600 mt-2">Elegí el médico, la fecha y el horario de tu consulta.</p>
+    <h1 class="text-3xl font-bold text-900 m-0">
+      @if (esAdministrador()) {
+        Asignar Turno (Administrador)
+      } @else {
+        Reservar Turno
+      }
+    </h1>
+    <p class="text-600 mt-2">
+      @if (esAdministrador()) {
+        Seleccioná un paciente, el médico, la fecha y el horario de la consulta.
+      } @else {
+        Elegí el médico, la fecha y el horario de tu consulta.
+      }
+    </p>
   </div>
 
   <div class="surface-card p-4 md:p-5 shadow-2 border-round">
     <form (ngSubmit)="reservar()">
+
+      <!-- SI ES ADMINISTRADOR: Selección / Búsqueda de Paciente por DNI o Nombre -->
+      @if (esAdministrador()) {
+        <div class="field mb-4">
+          <label for="paciente" class="block font-medium mb-2">Paciente</label>
+
+          <p-select
+            inputId="paciente"
+            [options]="pacientes()"
+            optionLabel="apellidos"
+            optionValue="id"
+            [ngModel]="pacienteSeleccionado()"
+            (ngModelChange)="pacienteSeleccionado.set($event)"
+            name="paciente"
+            placeholder="Buscá por DNI, apellido o nombre"
+            [filter]="true"
+            filterBy="documento,apellidos,nombres"
+            [showClear]="true"
+            [loading]="cargandoPacientes()"
+            [disabled]="cargandoPacientes()"
+            styleClass="w-full"
+            [fluid]="true">
+
+            <ng-template #item let-paciente>
+              {{ paciente.apellidos }}, {{ paciente.nombres }} — DNI: {{ paciente.documento }}
+            </ng-template>
+
+            <ng-template #selectedItem let-paciente>
+              @if (paciente) {
+                {{ paciente.apellidos }}, {{ paciente.nombres }} (DNI: {{ paciente.documento }})
+              }
+            </ng-template>
+          </p-select>
+
+          @if (!cargandoPacientes() && pacientes().length === 0) {
+            <p class="text-600 text-sm mt-2">No hay pacientes activos disponibles.</p>
+          }
+        </div>
+      }
 
       <!-- Médico -->
       <div class="field mb-4">
@@ -23,7 +74,8 @@
           [showClear]="true"
           [loading]="cargandoMedicos()"
           [disabled]="cargandoMedicos()"
-          styleClass="w-full">
+          styleClass="w-full"
+          [fluid]="true">
 
           <ng-template #item let-medico>
             {{ medico.nombres }} {{ medico.apellidos }}
@@ -40,9 +92,7 @@
         </p-select>
 
         @if (!cargandoMedicos() && medicos().length === 0) {
-          <p class="text-600 text-sm mt-2">
-            No hay médicos disponibles para mostrar.
-          </p>
+          <p class="text-600 text-sm mt-2">No hay médicos disponibles para mostrar.</p>
         }
       </div>
 
@@ -90,7 +140,7 @@
                 }
                 @else if (cargandoDisponibilidad()) {
                   <span class="block text-xs">Consultando...</span>
-               }
+                }
               </button>
             </div>
           }
