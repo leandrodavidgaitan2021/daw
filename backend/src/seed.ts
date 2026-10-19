@@ -17,22 +17,38 @@ async function bootstrap() {
   // Todos los usuarios de prueba comparten la clave 123456
   const passwordHash = await bcrypt.hash('123456', 10);
 
-  // Crea el usuario si el correo no existe; si existe, lo devuelve sin duplicarlo
-  const crearUsuario = async (datos: Partial<Usuario> & { email: string }): Promise<Usuario> => {
-    const existente = await usuarioRepo.findOne({ where: { email: datos.email } });
+  // Crea el usuario si el email no existe; si existe, lo devuelve sin duplicarlo
+  const crearUsuario = async (
+    datos: Partial<Usuario> & { email: string },
+  ): Promise<Usuario> => {
+    const existente = await usuarioRepo.findOne({
+      where: { email: datos.email },
+    });
     if (existente) return existente;
 
-    const nuevo = await usuarioRepo.save(usuarioRepo.create({ ...datos, clave: passwordHash }));
-    console.log(`Usuario creado: ${nuevo.email} (${nuevo.rol}, ${nuevo.estado})`);
+    const nuevo = await usuarioRepo.save(
+      usuarioRepo.create({ ...datos, clave: passwordHash }),
+    );
+    console.log(
+      `Usuario creado: ${nuevo.email} (${nuevo.rol}, ${nuevo.estado})`,
+    );
     return nuevo;
   };
 
   // Crea el perfil de médico (matrícula y valor de consulta) si todavía no existe
-  const crearMedico = async (usuario: Usuario, matricula: number, valorConsulta: number) => {
-    const existente = await medicoRepo.findOne({ where: { idUsuario: usuario.id } });
+  const crearMedico = async (
+    usuario: Usuario,
+    matricula: number,
+    valorConsulta: number,
+  ) => {
+    const existente = await medicoRepo.findOne({
+      where: { idUsuario: usuario.id },
+    });
     if (existente) return;
 
-    await medicoRepo.save(medicoRepo.create({ matricula, valorConsulta, usuario }));
+    await medicoRepo.save(
+      medicoRepo.create({ matricula, valorConsulta, usuario }),
+    );
     console.log(`Perfil de médico creado: ${matricula}`);
   };
 

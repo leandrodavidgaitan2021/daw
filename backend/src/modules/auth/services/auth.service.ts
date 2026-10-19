@@ -1,5 +1,9 @@
 // src/modules/auth/services/auth.service.ts
-import { Injectable, UnauthorizedException, ForbiddenException } from '@nestjs/common';
+import {
+  Injectable,
+  UnauthorizedException,
+  ForbiddenException,
+} from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { JwtService } from '@nestjs/jwt';
@@ -16,12 +20,14 @@ export class AuthService {
     private readonly jwtService: JwtService,
   ) {}
 
-  async login(correo: string, clave: string): Promise<LoginResponseDto> {
-    const usuario = await this.usuarioRepo.findOne({ where: { email: correo } });
+  async login(email: string, clave: string): Promise<LoginResponseDto> {
+    const usuario = await this.usuarioRepo.findOne({ where: { email: email } });
 
-    // Un solo mensaje para correo inexistente o clave incorrecta,
-    // así no se revela qué correos están registrados
-    const claveValida = usuario ? await bcrypt.compare(clave, usuario.clave) : false;
+    // Un solo mensaje para email inexistente o clave incorrecta,
+    // así no se revela qué emails están registrados
+    const claveValida = usuario
+      ? await bcrypt.compare(clave, usuario.clave)
+      : false;
     if (!usuario || !claveValida) {
       throw new UnauthorizedException('Credenciales inválidas.');
     }
@@ -34,7 +40,7 @@ export class AuthService {
     // Datos que viajan dentro del token (el RolesGuard lee rol y estado)
     const payload = {
       id: usuario.id,
-      correo: usuario.email,
+      email: usuario.email,
       rol: usuario.rol,
       estado: usuario.estado,
     };
@@ -47,7 +53,7 @@ export class AuthService {
         id: usuario.id,
         nombres: usuario.nombres,
         apellidos: usuario.apellidos,
-        correo: usuario.email,
+        email: usuario.email,
         rol: usuario.rol,
       },
     };

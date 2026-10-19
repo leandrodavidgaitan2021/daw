@@ -13,7 +13,7 @@ export class LoginUsuarioDto {
   apellidos: string;
 
   @ApiProperty({ example: 'paciente@clinica.com' })
-  correo: string;
+  email: string;
 
   @ApiProperty({ enum: RolesUsuarios, example: RolesUsuarios.PACIENTE })
   rol: RolesUsuarios;
@@ -23,7 +23,10 @@ export class LoginResponseDto {
   @ApiProperty({ example: 'Inicio de sesión exitoso' })
   message: string;
 
-  @ApiProperty({ description: 'Token JWT para enviar en el header Authorization: Bearer <token>' })
+  @ApiProperty({
+    description:
+      'Token JWT para enviar en el header Authorization: Bearer <token>',
+  })
   accessToken: string;
 
   @ApiProperty({ type: () => LoginUsuarioDto })
