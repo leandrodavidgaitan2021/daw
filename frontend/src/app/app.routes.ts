@@ -5,6 +5,7 @@ import { MisTurnosComponent } from './pages/paciente/mis-turnos';
 import { ReservarTurnoComponent } from './pages/paciente/reservar-turno';
 import { LoginComponent } from './auth/login/login';
 import { rolGuard } from './auth/auth-guard';
+import { AdminComponent } from './pages/admin/admin';
 
 export const routes: Routes = [
   { path: '', component: HomeComponent },
@@ -27,6 +28,10 @@ export const routes: Routes = [
     component: ReservarTurnoComponent,
     canActivate: [rolGuard(['PACIENTE'])],
   },
-
+{
+    path: 'admin',
+    component: AdminComponent,
+    canActivate: [rolGuard(['ADMIN'])]
+  },
   { path: '**', redirectTo: '' },
 ];
