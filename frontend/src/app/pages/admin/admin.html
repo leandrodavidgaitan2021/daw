@@ -1,0 +1,67 @@
+<div class="admin-container" style="padding: 20px; font-family: Arial, sans-serif;">
+  <h2>Panel de Administración de Turnos</h2>
+
+  <!-- Sección de Filtros -->
+  <div class="filtros" style="margin-bottom: 20px; display: flex; gap: 15px;">
+    <div>
+      <label for="filtroFecha" style="display: block; font-size: 14px; margin-bottom: 5px;">Filtrar por Fecha:</label>
+      <input 
+        type="date" 
+        id="filtroFecha" 
+        [(ngModel)]="fechaFiltro" 
+        style="padding: 6px; border-radius: 4px; border: 1px solid #ccc;">
+    </div>
+
+    <div>
+      <label for="filtroDni" style="display: block; font-size: 14px; margin-bottom: 5px;">Filtrar por DNI:</label>
+      <input 
+        type="text" 
+        id="filtroDni" 
+        [(ngModel)]="dniFiltro" 
+        placeholder="Ingrese DNI..." 
+        style="padding: 6px; border-radius: 4px; border: 1px solid #ccc;">
+    </div>
+  </div>
+
+  <!-- Tabla de Turnos Filtrados -->
+  <table class="table" style="width: 100%; border-collapse: collapse; background: #fff; box-shadow: 0 2px 5px rgba(0,0,0,0.1);">
+    <thead>
+      <tr style="background-color: #f8f9fa; border-bottom: 2px solid #dee2e6; text-align: left;">
+        <th style="padding: 12px;">ID</th>
+        <th style="padding: 12px;">Fecha</th>
+        <th style="padding: 12px;">Hora</th>
+        <th style="padding: 12px;">Paciente</th>
+        <th style="padding: 12px;">DNI</th>
+        <th style="padding: 12px;">Estado</th>
+        <th style="padding: 12px;">Acciones</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let turno of turnosFiltrados" style="border-bottom: 1px solid #dee2e6;">
+        <td style="padding: 12px;">{{ turno.id }}</td>
+        <td style="padding: 12px;">{{ turno.fecha }}</td>
+        <td style="padding: 12px;">{{ turno.hora }}</td>
+        <td style="padding: 12px;">{{ turno.paciente }}</td>
+        <td style="padding: 12px;">{{ turno.dni }}</td>
+        <td style="padding: 12px;">
+          <span [style.color]="turno.pagado ? 'green' : 'orange'">
+            {{ turno.estado || (turno.pagado ? 'Completado' : 'Pendiente') }}
+          </span>
+        </td>
+        <td style="padding: 12px;">
+          <button 
+            (click)="cobrarTurno(turno)" 
+            [disabled]="turno.pagado"
+            style="padding: 6px 12px; background-color: #28a745; color: white; border: none; border-radius: 4px; cursor: pointer;">
+            {{ turno.pagado ? 'Cobrado' : 'Cobrar / Asistió' }}
+          </button>
+        </td>
+      </tr>
+      <tr *ngIf="turnosFiltrados.length === 0">
+        <td colspan="7" style="text-align: center; padding: 20px; color: #6c757d;">
+          No se encontraron turnos con los filtros actualizados.
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>
