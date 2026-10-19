@@ -68,7 +68,8 @@ export class LoginComponent {
     }
 
     this.isLoading.set(true);
-    const credentials = this.loginForm.getRawValue();
+    const { email, clave } = this.loginForm.getRawValue();
+    const credentials = { correo: email, clave };
 
     this.loginApiClient.login(credentials).subscribe({
       next: (response) => {

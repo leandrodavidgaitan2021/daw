@@ -35,7 +35,7 @@
   <div class="p-toolbar-group-center">
     @if (authStore.isAuthenticated()) {
       <span class="text-white font-medium hidden lg:inline">
-        ¡Bienvenido, <span class="underline">{{ authStore.usuario()?.nombres || authStore.usuario()?.email }}</span>!
+        ¡Bienvenido, <span class="underline">{{ authStore.usuario()?.nombres || authStore.usuario()?.correo }}</span>!
       </span>
     }
   </div>

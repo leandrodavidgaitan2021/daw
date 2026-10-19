@@ -3,7 +3,7 @@ import { inject, Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 
 export interface LoginRequest {
-  email: string;
+  correo: string;
   clave: string;
 }
 
@@ -15,7 +15,7 @@ export interface LoginResponse {
     id: number;
     nombres: string;
     apellidos: string;
-    email: string;
+    correo: string;
     rol: string;
   };
 }

@@ -16,7 +16,7 @@ export interface Reserva {
   fechaHora: string;
   estado: EstadoReserva;
   valorConsulta: number;
-  paciente: { id: number; nombres: string; apellidos: string; documento: string; email: string };
+  paciente: { id: number; nombres: string; apellidos: string; documento: string; correo: string };
   medico: { id: number; matricula: number; valorConsulta: number; nombres: string; apellidos: string };
 }
 

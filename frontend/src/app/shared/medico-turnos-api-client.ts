@@ -12,7 +12,7 @@ export interface TurnoMedico {
     nombres: string;
     apellidos: string;
     documento: string;
-    email: string;
+    correo: string;
   };
 }
 

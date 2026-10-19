@@ -7,7 +7,7 @@ import { TagModule } from 'primeng/tag';
 export interface UsuarioPerfil {
   nombres: string;
   apellidos: string;
-  email?: string;       // Añadir opcional si puede venir undefined
+  correo?: string;       // Añadir opcional si puede venir undefined
   documento?: string;   // <--- Soluciona el error permitiendo undefined
   rol: string;
 }

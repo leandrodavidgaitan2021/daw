@@ -5,7 +5,7 @@ export interface Usuario {
   id: number | string;
   nombres?: string;
   apellidos?: string;
-  email: string;
+  correo: string;
   rol?: string; // Usamos 'rol' tal cual viene de tu API de NestJS
   [key: string]: any;
 }

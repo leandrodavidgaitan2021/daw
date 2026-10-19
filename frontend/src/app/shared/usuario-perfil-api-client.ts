@@ -6,7 +6,7 @@ export interface PerfilUsuarioResponse {
   id: number;
   nombres: string;
   apellidos: string;
-  email: string;
+  correo: string;
   documento?: string;
   rol: string;
   [key: string]: any;

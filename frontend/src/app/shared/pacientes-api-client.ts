@@ -8,7 +8,7 @@ export interface Paciente {
   documento: string;
   apellidos: string;
   nombres: string;
-  email: string;
+  correo: string;
   estado: string;
   rol: string;
 }
