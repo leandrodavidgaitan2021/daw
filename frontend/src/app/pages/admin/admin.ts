@@ -7,12 +7,12 @@ import { FormsModule } from '@angular/forms';
   standalone: true,
   imports: [CommonModule, FormsModule],
   templateUrl: './admin.html',
-  styleUrl: './admin.css'
+ styleUrls: ['./admin.css']
 })
 export class AdminComponent implements OnInit {
   turnos: any[] = [];
-  filtroFecha: string = '';
-  filtroDni: string = '';
+  fechaFiltro: string = '';
+  dniFiltro: string = '';
 
   ngOnInit() {
     this.cargarTurnos();
@@ -28,8 +28,8 @@ export class AdminComponent implements OnInit {
 
   get turnosFiltrados() {
     return this.turnos.filter(t => {
-      const matchFecha = this.filtroFecha ? t.fecha === this.filtroFecha : true;
-      const matchDni = this.filtroDni ? t.dni.includes(this.filtroDni) : true;
+      const matchFecha = this.fechaFiltro ? t.fecha === this.fechaFiltro : true;
+      const matchDni = this.dniFiltro ? t.dni.includes(this.dniFiltro) : true;
       return matchFecha && matchDni;
     });
   }
