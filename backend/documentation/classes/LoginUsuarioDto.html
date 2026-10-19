@@ -177,7 +177,7 @@
                             <li>
                                 <span class="reference-badge reference-badge--property" aria-hidden="true">P</span>
                                     <span class="modifier"></span>
-                                <a href="#correo" >correo</a>
+                                <a href="#email" >email</a>
                             </li>
                             <li>
                                 <span class="reference-badge reference-badge--property" aria-hidden="true">P</span>
@@ -253,11 +253,11 @@
         <tbody>
             <tr>
                 <td class="col-md-4">
-                    <a name="correo"></a>
+                    <a name="email"></a>
                     <span class="name">
                             <span class="modifier"></span>
-                        <span ><b>correo</b></span>
-                        <a href="#correo"><span class="icon ion-ios-link"></span></a>
+                        <span ><b>email</b></span>
+                        <a href="#email"><span class="icon ion-ios-link"></span></a>
                     </span>
                 </td>
             </tr>
@@ -419,7 +419,7 @@ export class LoginUsuarioDto {
   apellidos: string;
 
   @ApiProperty({ example: &#x27;paciente@clinica.com&#x27; })
-  correo: string;
+  email: string;
 
   @ApiProperty({ enum: RolesUsuarios, example: RolesUsuarios.PACIENTE })
   rol: RolesUsuarios;

@@ -283,7 +283,7 @@
             <tr>
                 <td class="col-md-4">
                         <span class="modifier-icon icon ion-ios-reset"></span>
-                    <code>login(correo: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a>, clave: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a>)</code>
+                    <code>login(email: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a>, clave: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a>)</code>
                 </td>
             </tr>
 
@@ -312,7 +312,7 @@
                                     </thead>
                                     <tbody>
                                         <tr>
-                                                <td>correo</td>
+                                                <td>email</td>
                                             <td>
                                                             <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
                                             </td>
@@ -373,11 +373,11 @@ export class AuthService {
     private readonly jwtService: JwtService,
   ) {}
 
-  async login(correo: string, clave: string): Promise&lt;LoginResponseDto&gt; {
-    const usuario &#x3D; await this.usuarioRepo.findOne({ where: { email: correo } });
+  async login(email: string, clave: string): Promise&lt;LoginResponseDto&gt; {
+    const usuario &#x3D; await this.usuarioRepo.findOne({ where: { email: email } });
 
-    // Un solo mensaje para correo inexistente o clave incorrecta,
-    // así no se revela qué correos están registrados
+    // Un solo mensaje para email inexistente o clave incorrecta,
+    // así no se revela qué emails están registrados
     const claveValida &#x3D; usuario ? await bcrypt.compare(clave, usuario.clave) : false;
     if (!usuario || !claveValida) {
       throw new UnauthorizedException(&#x27;Credenciales inválidas.&#x27;);
@@ -391,7 +391,7 @@ export class AuthService {
     // Datos que viajan dentro del token (el RolesGuard lee rol y estado)
     const payload &#x3D; {
       id: usuario.id,
-      correo: usuario.email,
+      email: usuario.email,
       rol: usuario.rol,
       estado: usuario.estado,
     };
@@ -404,7 +404,7 @@ export class AuthService {
         id: usuario.id,
         nombres: usuario.nombres,
         apellidos: usuario.apellidos,
-        correo: usuario.email,
+        email: usuario.email,
         rol: usuario.rol,
       },
     };

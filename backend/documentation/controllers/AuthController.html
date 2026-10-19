@@ -323,7 +323,7 @@ export class AuthController {
   @ApiResponse({ status: 401, description: &#x27;Credenciales inválidas.&#x27; })
   @ApiResponse({ status: 403, description: &#x27;La cuenta está dada de baja.&#x27; })
   async login(@Body() loginDto: LoginDto) {
-    return this.authService.login(loginDto.correo, loginDto.clave);
+    return this.authService.login(loginDto.email, loginDto.clave);
   }
 }</code></pre>
     </div>

@@ -29,7 +29,7 @@ exports: `MedicosService`, `ReservasService`, `UsuariosService`
 File: `src/modules/auth/services/auth.service.ts`
 
 Methods:
-- `login(correo: string, clave: string): Promise<LoginResponseDto>`
+- `login(email: string, clave: string): Promise<LoginResponseDto>`
 
 ### MedicosService
 
@@ -108,7 +108,7 @@ File: `src/modules/auth/dtos/login.dto.ts`
 
 Properties:
 - `clave: string`
-- `correo: string`
+- `email: string`
 
 ### LoginResponseDto
 
@@ -125,7 +125,7 @@ File: `src/modules/auth/dtos/login-response.dto.ts`
 
 Properties:
 - `apellidos: string`
-- `correo: string`
+- `email: string`
 - `id: number`
 - `nombres: string`
 - `rol: RolesUsuarios`
